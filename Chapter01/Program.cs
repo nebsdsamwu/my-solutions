@@ -10,20 +10,26 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(IsApermutationNSqr("abcde", "cedba"));
+            Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
             //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
             Console.ReadKey();
         }
 
         // 1.2.2
-        static bool IsApermutation(string str1, string str2)
+        static bool IsPermutation(string str1, string str2)
         {
             char[] chs1 = str1.ToCharArray();
             char[] chs2 = str2.ToCharArray();
+            HashSet<char> chSet = new HashSet<char>();
+
+            foreach(char ch2 in chs2)
+            {
+                chSet.Add(ch2);
+            }
 
             foreach (char ch1 in chs1)
             {
-                foreach (char ch2 in chs2)
+                foreach (char ch2 in chSet)
                 {
                     if (ch1 == ch2)
                         break;
@@ -36,7 +42,7 @@ namespace Chapter01
         }
 
         // 1.2.1
-        static bool IsApermutationNSqr(string str1, string str2)
+        static bool IsPermutationNSqr(string str1, string str2)
         {
             char[] chs1 = str1.ToCharArray();
             char[] chs2 = str2.ToCharArray();
