@@ -15,7 +15,27 @@ namespace Chapter01
             Console.ReadKey();
         }
 
-        // 1.2
+        // 1.2.2
+        static bool IsApermutation(string str1, string str2)
+        {
+            char[] chs1 = str1.ToCharArray();
+            char[] chs2 = str2.ToCharArray();
+
+            foreach (char ch1 in chs1)
+            {
+                foreach (char ch2 in chs2)
+                {
+                    if (ch1 == ch2)
+                        break;
+
+                    if (ch2 == chs2.Last())
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        // 1.2.1
         static bool IsApermutationNSqr(string str1, string str2)
         {
             char[] chs1 = str1.ToCharArray();
@@ -36,7 +56,7 @@ namespace Chapter01
         }
 
 
-        // 1.1
+        // 1.1.2
         static bool IsUnique(string str)
         {
             char[] chs = str.ToCharArray();
@@ -56,6 +76,7 @@ namespace Chapter01
             return true;
         }
 
+        // 1.1.1
         static bool IsUniqueNSqr(string str)
         {
             char[] chs = str.ToCharArray();
