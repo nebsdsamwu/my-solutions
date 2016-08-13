@@ -10,13 +10,102 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
+            Console.WriteLine(IsPalindrome("Taco cat yyoo vvv"));
+            //Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
             //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
             Console.ReadKey();
         }
 
+        // 1.4.1
+        static bool IsPalindrome(string s)
+        {
+            char[] chs = s.ToCharArray();
+            var charCnt = new Dictionary<char, int?>();
+
+            for (int i = 0; i < chs.Length; i++)
+            {
+                if (chs[i] == ' ')
+                {
+                    continue;
+                }
+                else
+                {
+                    if (chs[i] < 'a')
+                    {
+                        int cht = (int)chs[i] + 32;
+                        chs[i] = (char)(cht);
+                    }
+                }
+
+                int? cnt = 0;
+                if (charCnt.TryGetValue(chs[i], out cnt))
+                {
+                    cnt += 1;
+                    charCnt[chs[i]] = cnt;
+                }
+                else
+                {
+                    charCnt.Add(chs[i], 1);
+                }
+            }
+              
+            int oddCnt = 0;
+            foreach(var kvp in charCnt)
+            {
+                if (kvp.Value % 2 == 0)
+                    continue;
+
+                if (kvp.Value % 2 == 1)
+                {
+                    oddCnt += 1;
+                    if (oddCnt > 1)
+                        return false;
+                }
+            }
+            return true; ;
+        }
+
         // 1.2.2
-        static bool IsPermutation(string str1, string str2)
+        static bool IsPermutationDict(string str1, string str2)
+        {
+            char[] chs1 = str1.ToCharArray();
+            char[] chs2 = str2.ToCharArray();
+            Dictionary<char, int?> chDict = new Dictionary<char, int?>();
+
+            foreach (char ch2 in chs2)
+            {
+                int? cnt = 0;
+                if (chDict.TryGetValue(ch2, out cnt))
+                {
+                    cnt += 1;
+                    chDict[ch2] = cnt;
+                }
+                else
+                {
+                    chDict.Add(ch2, 1);
+                }
+            }
+
+            foreach (char ch1 in chs1)
+            {
+                //foreach (char ch2 in chDict.Keys)
+                //{
+                //    if (ch1 == ch2)
+                //    {
+                //        int cnt = chDict[ch2].Value;
+                //        chDict[ch2] = cnt - 1;
+                //        break;
+                //    }
+
+                //    if (ch2 == chs2.Last())
+                //        return false;
+                //}
+            }
+            return true;
+        }
+
+        // 1.2.2
+        static bool IsPermutationHash(string str1, string str2)
         {
             char[] chs1 = str1.ToCharArray();
             char[] chs2 = str2.ToCharArray();
