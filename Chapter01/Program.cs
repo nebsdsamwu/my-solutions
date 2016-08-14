@@ -10,10 +10,61 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(IsPalindrome("Taco cat yyoo vvv"));
+            Console.WriteLine(IsOneEditAway("bake", "bakeee"));
+            //string s1 = "Rats live on no evil star";
+            //string s2 = "Taco cat yyoo vvv";
+            //Console.WriteLine(IsPalindrome(s1));
             //Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
             //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
             Console.ReadKey();
+        }
+
+        // 1.5.1
+        static bool IsOneEditAway(string s1, string s2)
+        {
+            if (Math.Abs(s1.Length - s2.Length) > 1)
+            {
+                return false;
+            }
+
+            if (s1.Length >= s2.Length)
+                return CheckOneEditAway(s1, s2);
+            else
+                return CheckOneEditAway(s2, s1);
+        }
+
+        static bool CheckOneEditAway(string lng, string shrt)
+        {
+            char[] chsL = lng.ToCharArray();
+            int[] chArchive = new int[256];
+            for (int i = 0; i < chsL.Length; i++)
+            {
+                chArchive[(int)chsL[i]] += 1;
+            }
+
+            char[] chsS = shrt.ToCharArray();
+            for (int i = 0; i < chsS.Length; i++)
+            {
+                if (chArchive[chsS[i]] > 0)
+                {
+                    chArchive[chsS[i]] -= 1;
+                }
+            }
+ 
+            int cnt = 0;
+            foreach(int n in chArchive)
+            {
+                if (n > 0)
+                {
+                    cnt += 1;
+                }
+            }
+
+            if (cnt > 1)
+            {
+                return false;
+            }
+            return true;;
         }
 
         // 1.4.1
