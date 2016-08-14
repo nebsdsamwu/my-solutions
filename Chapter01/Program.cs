@@ -10,7 +10,8 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(IsOneEditAway("bake", "bakeee"));
+            Console.WriteLine(CompressString("aabcccccaaa"));
+            //Console.WriteLine(IsOneAway("bake", "bakeee"));
             //string s1 = "Rats live on no evil star";
             //string s2 = "Taco cat yyoo vvv";
             //Console.WriteLine(IsPalindrome(s1));
@@ -19,8 +20,48 @@ namespace Chapter01
             Console.ReadKey();
         }
 
+        // 1.6.1
+        static string CompressString(string inStr)
+        {
+            string outStr = "";
+            char[] chs = inStr.ToCharArray();
+            Queue<string> strQue = new Queue<string>();
+
+            int start = 0;
+            int cnt = 0;
+            for (int i = 0; i < chs.Length; i++)
+            {
+                start = i;
+                cnt = 1;
+                while(chs[i+1]==chs[start])
+                {
+                    cnt += 1;
+                    i += 1;
+                    if (i == chs.Length - 1)
+                    { 
+                        break; 
+                    }
+                }
+                strQue.Enqueue(chs[start].ToString());
+                strQue.Enqueue(cnt.ToString());
+            }
+
+            if (strQue.Count >= chs.Length)
+            {
+                return inStr;
+            }
+            else
+            {
+                while (strQue.Count > 0)
+                {
+                    outStr += strQue.Dequeue();
+                }
+                return outStr;
+            }
+        }
+
         // 1.5.1
-        static bool IsOneEditAway(string s1, string s2)
+        static bool IsOneAway(string s1, string s2)
         {
             if (Math.Abs(s1.Length - s2.Length) > 1)
             {
