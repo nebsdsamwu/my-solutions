@@ -10,23 +10,45 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            int fve = 0;
-            //CheckMulti(out fve);
-            Console.WriteLine(fve);
-            //Console.WriteLine(CompressString("aabcccccaaa"));
-            //Console.WriteLine(IsOneAway("bake", "bakeee"));
-            //string s1 = "Rats live on no evil star";
-            //string s2 = "Taco cat yyoo vvv";
-            //Console.WriteLine(IsPalindrome(s1));
-            //Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
-            //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
-            Console.ReadKey();
+            string[,] mFour = new string[2,2];
+            mFour[0, 1] = "A";
+            mFour[1, 1] = "B";
+            mFour[0, 0] = "C";
+            mFour[1, 0] = "D";
+
+            for (int i = 0; i < mFour.GetLongLength(0); i++)
+            {
+                for(int j=0;j<mFour.GetLongLength(1); j++)
+                {
+                    Console.WriteLine(mFour[i,j]);
+                }
+            }
+                //Console.WriteLine(CompressString("aabcccccaaa"));
+                //Console.WriteLine(IsOneAway("bake", "bakeee"));
+                //string s1 = "Rats live on no evil star";
+                //string s2 = "Taco cat yyoo vvv";
+                //Console.WriteLine(IsPalindrome(s1));
+                //Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
+                //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
+                Console.ReadKey();
         }
 
         // 1.7.1
-        static void RotateMatrix(int n)
+        static void RotateMatrix(string[,] m)
         {
-            
+            float c = (float)(m.GetLength(0) / 2);
+
+            for (int i = 0; i < m.GetLongLength(0); i++)
+            {
+                for (int j = 0; j < m.GetLongLength(1); j++)
+                {
+                    Console.WriteLine(m[i, j]);
+                    if (i > c && j>c) 
+                    {
+
+                    }
+                }
+            }            
         }
 
         // 1.6.1
