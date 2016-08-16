@@ -10,7 +10,10 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(CompressString("aabcccccaaa"));
+            int fve = 0;
+            //CheckMulti(out fve);
+            Console.WriteLine(fve);
+            //Console.WriteLine(CompressString("aabcccccaaa"));
             //Console.WriteLine(IsOneAway("bake", "bakeee"));
             //string s1 = "Rats live on no evil star";
             //string s2 = "Taco cat yyoo vvv";
@@ -18,6 +21,12 @@ namespace Chapter01
             //Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
             //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
             Console.ReadKey();
+        }
+
+        // 1.7.1
+        static void RotateMatrix(int n)
+        {
+            
         }
 
         // 1.6.1
