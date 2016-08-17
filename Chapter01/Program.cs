@@ -10,19 +10,21 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            string[,] mFour = new string[2,2];
-            mFour[0, 1] = "A";
-            mFour[1, 1] = "B";
-            mFour[0, 0] = "C";
-            mFour[1, 0] = "D";
+            Rotate4Dot();
 
-            for (int i = 0; i < mFour.GetLongLength(0); i++)
-            {
-                for(int j=0;j<mFour.GetLongLength(1); j++)
-                {
-                    Console.WriteLine(mFour[i,j]);
-                }
-            }
+            //string[,] mFour = new string[2,2];
+            //mFour[0, 1] = "A";
+            //mFour[1, 1] = "B";
+            //mFour[0, 0] = "C";
+            //mFour[1, 0] = "D";
+
+            //for (int i = 0; i < mFour.GetLongLength(0); i++)
+            //{
+            //    for(int j=0;j<mFour.GetLongLength(1); j++)
+            //    {
+            //        Console.WriteLine(mFour[i,j]);
+            //    }
+            //}
                 //Console.WriteLine(CompressString("aabcccccaaa"));
                 //Console.WriteLine(IsOneAway("bake", "bakeee"));
                 //string s1 = "Rats live on no evil star";
@@ -31,6 +33,66 @@ namespace Chapter01
                 //Console.WriteLine(IsPermutationNSqr("abcfe", "ceabf"));
                 //Console.WriteLine(IsUniqueNSqr("aobcdfgep"));
                 Console.ReadKey();
+        }
+
+        // 1.7.1 - test
+        static void Rotate4Dot()
+        {
+            string[,] mm = new string[2, 2];
+
+            mm[0, 0] = "a";
+            mm[0, 1] = "b";
+            mm[1, 0] = "c";
+            mm[1, 1] = "d";
+
+            int len = mm.GetLength(0);
+
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    Console.WriteLine(mm[i, j]);
+                }
+            }
+
+
+            string t1 = "";
+            string t2 = "";
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    if (i < 0.5 && j < 0.5)
+                    {
+                        t1 = mm[i, j];
+                        mm[i, j] = mm[i + 1, j];
+                    }
+                    else if (i < 0.5 && j > 0.5)
+                    {
+                        t2 = mm[i, j];
+                        mm[i, j] = t1;
+                    }
+                    else if (i > 0.5 && j < 0.5)
+                    {
+                        mm[i, j] = mm[i, j + 1];
+                    }
+                    else if (i > 0.5 && j > 0.5)
+                    {
+                        mm[i, j] = t2;
+                    }
+                }
+            }
+            Console.WriteLine("");
+
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    Console.WriteLine(mm[i, j]);
+                }
+            }
+            Console.WriteLine("");
+            Console.ReadKey();
         }
 
         // 1.7.1
