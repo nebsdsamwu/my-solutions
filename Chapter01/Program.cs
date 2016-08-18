@@ -10,7 +10,8 @@ namespace Chapter01
     {
         static void Main(string[] args)
         {
-            Rotate4Dot();
+
+            //Rotate9Dots();
 
             //string[,] mFour = new string[2,2];
             //mFour[0, 1] = "A";
@@ -36,16 +37,28 @@ namespace Chapter01
         }
 
         // 1.7.1 - test
-        static void Rotate4Dot()
+        static void Rotate9Dots()
         {
-            string[,] mm = new string[2, 2];
+            string[,] mm = new string[3, 3];
 
             mm[0, 0] = "a";
             mm[0, 1] = "b";
-            mm[1, 0] = "c";
-            mm[1, 1] = "d";
+            mm[0, 2] = "c";
+            mm[1, 0] = "d";
+            mm[1, 1] = "e";
+            mm[1, 2] = "f";
+            mm[2, 0] = "g";
+            mm[2, 1] = "h";
+            mm[2, 2] = "i";
 
             int len = mm.GetLength(0);
+            double csum = 0;
+            for (int i = 0; i < len; i++)
+            {
+                csum += i;
+            }
+
+            double ctr = csum / len;
 
             for (int i = 0; i < len; i++)
             {
@@ -62,21 +75,87 @@ namespace Chapter01
             {
                 for (int j = 0; j < len; j++)
                 {
-                    if (i < 0.5 && j < 0.5)
+                    if (i < ctr && j < ctr)
                     {
                         t1 = mm[i, j];
                         mm[i, j] = mm[i + 1, j];
                     }
-                    else if (i < 0.5 && j > 0.5)
+                    else if (i < ctr && j > ctr)
                     {
                         t2 = mm[i, j];
                         mm[i, j] = t1;
                     }
-                    else if (i > 0.5 && j < 0.5)
+                    else if (i > ctr && j < ctr)
                     {
                         mm[i, j] = mm[i, j + 1];
                     }
-                    else if (i > 0.5 && j > 0.5)
+                    else if (i > ctr && j > ctr)
+                    {
+                        mm[i, j] = t2;
+                    }
+                }
+            }
+            Console.WriteLine("");
+
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    Console.WriteLine(mm[i, j]);
+                }
+            }
+            Console.WriteLine("");
+            Console.ReadKey();
+        }
+
+        static void Rotate4Dots()
+        {
+            string[,] mm = new string[2, 2];
+
+            mm[0, 0] = "a";
+            mm[0, 1] = "b";
+            mm[1, 0] = "c";
+            mm[1, 1] = "d";
+
+            int len = mm.GetLength(0);
+            double csum = 0;
+            for (int i = 0; i < len; i++ )
+            {
+                csum += i;
+            }
+
+            double ctr = csum / len;
+ 
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    Console.WriteLine(mm[i, j]);
+                }
+            }
+
+
+            string t1 = "";
+            string t2 = "";
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    if (i < ctr && j < ctr)
+                    {
+                        t1 = mm[i, j];
+                        mm[i, j] = mm[i + 1, j];
+                    }
+                    else if (i < ctr && j > ctr)
+                    {
+                        t2 = mm[i, j];
+                        mm[i, j] = t1;
+                    }
+                    else if (i > ctr && j < ctr)
+                    {
+                        mm[i, j] = mm[i, j + 1];
+                    }
+                    else if (i > ctr && j > ctr)
                     {
                         mm[i, j] = t2;
                     }
