@@ -10,7 +10,7 @@ namespace Chapter02
     {
         static void Main(string[] args)
         {
-            int[] t = { 9, 4, 2, 7, 12, 4, 43, 9, 2, 7 };
+            int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
             Node head = new Node(0);
             SingleLinkedList sList = new SingleLinkedList(head);
 
@@ -20,7 +20,7 @@ namespace Chapter02
             }
 
             Node nd = sList.head;
-            while(nd.next != null)
+            while(nd != null)
             {
                 Console.WriteLine(nd.data);
                 nd = nd.next;
@@ -45,13 +45,19 @@ namespace Chapter02
             Node nd = list.head;
             Node pre = null;
             HashSet<int> dSet = new HashSet<int>();
-            while (nd.next != null)
+            while (nd != null)
             {
-                if (dSet.Contains(nd.data))
+                if (dSet.Contains(nd.data)) 
                 {
-                    pre.next = nd.next.next;
-                    pre = nd.next;
-                    nd = pre;
+                    if (nd.next != null) // then connect nd's pre to nd's next.
+                    {
+                        pre.next = nd.next;
+                        pre = nd;
+                    }
+                    else // nd is the end node, remove it.
+                    {
+                        pre.next = nd.next;
+                    }
                 }
                 else 
                 {
