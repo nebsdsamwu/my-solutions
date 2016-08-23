@@ -49,12 +49,12 @@ namespace Chapter02
             {
                 if (dSet.Contains(nd.data)) 
                 {
-                    if (nd.next != null && nd.next.data != nd.data) // then connect nd's pre to nd's next.
+                    if (nd.next != null && ! dSet.Contains(nd.next.data)) // then connect nd's pre to nd's next.
                     {
                         pre.next = nd.next;
                         pre = nd;
                     }
-                    else // nd is the end node, remove it.
+                    else if (nd.next == null)// nd is the end node, remove it.
                     {
                         pre.next = nd.next;
                     }
