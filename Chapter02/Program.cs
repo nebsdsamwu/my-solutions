@@ -19,8 +19,8 @@ namespace Chapter02
                 sList.AppendToTail(n);
             }
 
-            Node nd = sList.head;
-            while(nd != null)
+            Node nd = sList.head.next;
+            while(nd.next != null)
             {
                 Console.WriteLine(nd.data);
                 nd = nd.next;
@@ -29,8 +29,8 @@ namespace Chapter02
             RemoveDups(sList);
 
             Console.WriteLine();
-            nd = sList.head;
-            while (nd.next != null)
+            nd = sList.head.next;
+            while (nd != null)
             {
                 Console.WriteLine(nd.data);
                 nd = nd.next;
@@ -49,7 +49,7 @@ namespace Chapter02
             {
                 if (dSet.Contains(nd.data)) 
                 {
-                    if (nd.next != null) // then connect nd's pre to nd's next.
+                    if (nd.next != null && nd.next.data != nd.data) // then connect nd's pre to nd's next.
                     {
                         pre.next = nd.next;
                         pre = nd;
@@ -63,7 +63,7 @@ namespace Chapter02
                 {
                     dSet.Add(nd.data);
                     pre = nd;
-                }            
+                }
                 nd = nd.next;
             }
         }
