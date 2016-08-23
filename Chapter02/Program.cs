@@ -31,11 +31,11 @@ namespace Chapter02
             //nd = sList.head;
             
             // 2.2
-            SingleLinkedList result = GetKthToLast(sList, 2);
+            SingleLinkedList result = GetKthToLast(sList, 13);
             nd = result.head;
 
             Console.WriteLine();
-            Console.WriteLine();
+
             while (nd != null)
             {
                 Console.WriteLine(nd.data);
@@ -62,7 +62,6 @@ namespace Chapter02
 
             while (nd != null && k > 0)
             {
-                //Console.WriteLine(nd.data);
                 if (k > 1)
                 {
                     k -= 1;
@@ -70,7 +69,8 @@ namespace Chapter02
                 }
                 else
                 {
-                    return new SingleLinkedList(nd);
+                    result = new SingleLinkedList(nd);
+                    break;
                 }           
             }
             return result;
