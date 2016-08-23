@@ -53,8 +53,7 @@ namespace Chapter02
             {
                 return result;
             }
-
-            if (k == 1)
+            else if (k == 1)
             {
                 return sList;
             }
@@ -63,18 +62,17 @@ namespace Chapter02
 
             while (nd != null && k > 0)
             {
-                Console.WriteLine(nd.data);
+                //Console.WriteLine(nd.data);
                 if (k > 1)
                 {
                     k -= 1;
+                    nd = nd.next;
                 }
                 else
                 {
-                    result.AppendToTail(nd);
-                }
-                nd = nd.next;
+                    return new SingleLinkedList(nd);
+                }           
             }
-
             return result;
         }
 
