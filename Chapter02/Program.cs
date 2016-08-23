@@ -12,24 +12,30 @@ namespace Chapter02
         {
             int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
             Node head = new Node(0);
-            SingleLinkedList sList = new SingleLinkedList(head);
+            SingleLinkedList sList = new SingleLinkedList();
 
             foreach (int n in t)
             {
                 sList.AppendToTail(n);
             }
 
-            Node nd = sList.head.next;
-            while(nd.next != null)
+            Node nd = sList.head;
+            while(nd != null)
             {
                 Console.WriteLine(nd.data);
                 nd = nd.next;
             }
 
-            RemoveDups(sList);
+            // 2.1
+            //RemoveDups(sList);
+            //nd = sList.head;
+            
+            // 2.2
+            SingleLinkedList result = GetKthToLast(sList, 2);
+            nd = result.head;
 
             Console.WriteLine();
-            nd = sList.head.next;
+            Console.WriteLine();
             while (nd != null)
             {
                 Console.WriteLine(nd.data);
@@ -37,6 +43,39 @@ namespace Chapter02
             }
 
             Console.ReadKey();
+        }
+
+        // 2.2
+        static SingleLinkedList GetKthToLast(SingleLinkedList sList, int k)
+        {
+            SingleLinkedList result = new SingleLinkedList();
+            if (k < 1)
+            {
+                return result;
+            }
+
+            if (k == 1)
+            {
+                return sList;
+            }
+
+            Node nd = sList.head;
+
+            while (nd != null && k > 0)
+            {
+                Console.WriteLine(nd.data);
+                if (k > 1)
+                {
+                    k -= 1;
+                }
+                else
+                {
+                    result.AppendToTail(nd);
+                }
+                nd = nd.next;
+            }
+
+            return result;
         }
 
         // 2.1
@@ -56,10 +95,7 @@ namespace Chapter02
                             pre.next = nd.next;
                             pre = nd;
                         }
-                        //else
-                        //{
-                        //    // skip this node
-                        //}
+                        // else skip this node
                     }
                     else if (nd.next == null)// nd is the end node, remove it.
                     {
@@ -80,6 +116,11 @@ namespace Chapter02
     {
         public Node head;
 
+        public SingleLinkedList()
+        {
+            head = null;
+        }
+
         public SingleLinkedList(Node h)
         {
             head = h;
@@ -88,12 +129,36 @@ namespace Chapter02
         public void AppendToTail(int n)
         {
             Node end = new Node(n);
-            Node nd = this.head;
-            while (nd.next != null)
+            if (this.head == null)
             {
-                nd = nd.next;
+                this.head = end;
             }
-            nd.next = end;
+            else
+            {
+                Node nd = this.head;
+                while (nd.next != null)
+                {
+                    nd = nd.next;
+                }
+                nd.next = end;
+            }
+        }
+
+        public void AppendToTail(Node end)
+        {
+            if (this.head == null)
+            {
+                this.head = end;
+            }
+            else
+            {
+                Node nd = this.head;
+                while (nd.next != null)
+                {
+                    nd = nd.next;
+                }
+                nd.next = end;
+            }
         }
     }
 
