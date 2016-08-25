@@ -12,7 +12,7 @@ namespace Chapter02
         {
             //int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
             //int[] t = { 9, 4, 2, 5, 7, 12, 43 };
-            int[] t = { 3, 5, 8, 5, 10, 2, 1 };
+            int[] t = { 3, 5, 8, 5, 10, 2, 1, 9, 4, 2, 5, 7, 12, 43 };
             SingleLinkedList sList = new SingleLinkedList();
 
             foreach (int n in t)
@@ -38,7 +38,7 @@ namespace Chapter02
             //SingleLinkedList result = DeleteTheMidddle(sList, new Node(5));
 
 
-            SingleLinkedList result = Partition(sList, new Node(5));
+            SingleLinkedList result = Partition(sList, new Node(10));
 
             Console.WriteLine();
 
@@ -62,11 +62,11 @@ namespace Chapter02
             {
                 if (nd.data < x.data)
                 {
-                    result.AppendToTail(nd);
+                    result.AppendToTail(nd.data);
                 }
                 else
                 {
-                    later.AppendToTail(nd);
+                    later.AppendToTail(nd.data);
                 }
                 nd = nd.next;
             }
@@ -197,22 +197,23 @@ namespace Chapter02
             }
         }
 
-        public void AppendToTail(Node end)
-        {
-            if (this.head == null)
-            {
-                this.head = end;
-            }
-            else
-            {
-                Node nd = this.head;
-                while (nd.next != null)
-                {
-                    nd = nd.next;
-                }
-                nd.next = end;
-            }
-        }
+        // Error, append the actual nd will cause looping when ttry to reach the end
+        //public void AppendToTail(Node end)
+        //{
+        //    if (this.head == null)
+        //    {
+        //        this.head = end;
+        //    }
+        //    else
+        //    {
+        //        Node nd = this.head;
+        //        while (nd.next != null)
+        //        {
+        //            nd = nd.next;
+        //        }
+        //        nd.next = end;
+        //    }
+        //}
     }
 
     public class Node
