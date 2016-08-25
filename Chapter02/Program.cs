@@ -11,7 +11,8 @@ namespace Chapter02
         static void Main(string[] args)
         {
             //int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
-            int[] t = { 9, 4, 2, 5, 7, 12, 43 };
+            //int[] t = { 9, 4, 2, 5, 7, 12, 43 };
+            int[] t = { 3, 5, 8, 5, 10, 2, 1 };
             SingleLinkedList sList = new SingleLinkedList();
 
             foreach (int n in t)
@@ -34,7 +35,10 @@ namespace Chapter02
             //SingleLinkedList result = GetKthToLast(sList, 8);
             
             // 2.3
-            SingleLinkedList result = DeleteTheMidddle(sList, new Node(5));
+            //SingleLinkedList result = DeleteTheMidddle(sList, new Node(5));
+
+
+            SingleLinkedList result = Partition(sList, new Node(5));
 
             Console.WriteLine();
 
@@ -46,6 +50,38 @@ namespace Chapter02
             }
 
             Console.ReadKey();
+        }
+
+        // 2.4
+        static SingleLinkedList Partition(SingleLinkedList list, Node x)
+        {
+            SingleLinkedList result = new SingleLinkedList();
+            SingleLinkedList later = new SingleLinkedList();
+            Node nd = list.head;
+            while (nd != null)
+            {
+                if (nd.data < x.data)
+                {
+                    result.AppendToTail(nd);
+                }
+                else
+                {
+                    later.AppendToTail(nd);
+                }
+                nd = nd.next;
+            }
+
+            nd = result.head;
+            while (nd != null)
+            {
+                if (nd.next == null)
+                {
+                    nd.next = later.head;
+                    break;
+                }
+                nd = nd.next;
+            }
+            return result;
         }
 
         // 2.3
