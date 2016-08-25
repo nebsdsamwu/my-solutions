@@ -39,8 +39,12 @@ namespace Chapter01
         // 1.7.1 - test
         static void Rotate9Dots()
         {
+            /*
+             *  c f i       a b c 
+             *  b e h   =>  d e f
+             *  a d g       g h i 
+             */
             string[,] mm = new string[3, 3];
-
             mm[0, 0] = "a";
             mm[0, 1] = "b";
             mm[0, 2] = "c";
