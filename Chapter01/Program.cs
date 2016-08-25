@@ -11,7 +11,7 @@ namespace Chapter01
         static void Main(string[] args)
         {
 
-            //Rotate9Dots();
+            Rotate9Dots();
 
             //string[,] mFour = new string[2,2];
             //mFour[0, 1] = "A";
@@ -43,6 +43,13 @@ namespace Chapter01
              *  c f i       a b c 
              *  b e h   =>  d e f
              *  a d g       g h i 
+             *  
+             *  [ g d a h e b i f c ]
+             *  
+             *  current:
+             *  a f c
+             *  b e h
+             *  d d h
              */
             string[,] mm = new string[3, 3];
             mm[0, 0] = "a";
@@ -62,7 +69,7 @@ namespace Chapter01
                 csum += i;
             }
 
-            double ctr = csum / len;
+            double cntr = csum / len;
 
             for (int i = 0; i < len; i++)
             {
@@ -79,21 +86,26 @@ namespace Chapter01
             {
                 for (int j = 0; j < len; j++)
                 {
-                    if (i < ctr && j < ctr)
+                    if (i < cntr && j < cntr)
                     {
                         t1 = mm[i, j];
                         mm[i, j] = mm[i + 1, j];
                     }
-                    else if (i < ctr && j > ctr)
+                    else if (i < cntr && j == cntr)
                     {
                         t2 = mm[i, j];
                         mm[i, j] = t1;
                     }
-                    else if (i > ctr && j < ctr)
+                    else if (i < cntr && j > cntr)
+                    {
+                        t2 = mm[i, j];
+                        mm[i, j] = t1;
+                    }
+                    else if (i > cntr && j < cntr)
                     {
                         mm[i, j] = mm[i, j + 1];
                     }
-                    else if (i > ctr && j > ctr)
+                    else if (i > cntr && j > cntr)
                     {
                         mm[i, j] = t2;
                     }
@@ -109,7 +121,6 @@ namespace Chapter01
                 }
             }
             Console.WriteLine("");
-            Console.ReadKey();
         }
 
         static void Rotate4Dots()
