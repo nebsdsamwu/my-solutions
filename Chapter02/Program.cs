@@ -11,7 +11,7 @@ namespace Chapter02
         static void Main(string[] args)
         {
             //int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
-            int[] t = { 9, 4, 2, 5, 7, 12, 4, 43 };
+            int[] t = { 9, 4, 2, 5, 7, 12, 43 };
             SingleLinkedList sList = new SingleLinkedList();
 
             foreach (int n in t)
@@ -34,7 +34,7 @@ namespace Chapter02
             //SingleLinkedList result = GetKthToLast(sList, 8);
             
             // 2.3
-            SingleLinkedList result = DeleteTheMidddle(sList, new Node(12));
+            SingleLinkedList result = DeleteTheMidddle(sList, new Node(5));
 
             Console.WriteLine();
 
