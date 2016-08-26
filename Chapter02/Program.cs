@@ -12,18 +12,26 @@ namespace Chapter02
         {
             //int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
             //int[] t = { 9, 4, 2, 5, 7, 12, 43 };
-            int[] t = { 3, 5, 8, 5, 10, 2, 1, 9, 4, 2, 5, 7, 12, 43 };
-            SingleLinkedList sList = new SingleLinkedList();
+            //int[] t = { 3, 5, 8, 5, 10, 2, 1, 9, 4, 2, 5, 7, 12, 43 };
+            int[] t1 = { 7, 1, 6 };
+            int[] t2 = { 5, 9, 2 };
 
-            foreach (int n in t)
+            SingleLinkedList sList1 = new SingleLinkedList();
+            foreach (int n in t1)
             {
-                sList.AppendToTail(n);
+                sList1.AppendToTail(n);
             }
 
-            Node nd = sList.head;
+            SingleLinkedList sList2 = new SingleLinkedList();
+            foreach (int n in t2)
+            {
+                sList2.AppendToTail(n);
+            }
+            
+            Node nd = sList1.head;
             while(nd != null)
             {
-                Console.WriteLine(nd.data);
+                //Console.WriteLine(nd.data);
                 nd = nd.next;
             }
 
@@ -37,19 +45,56 @@ namespace Chapter02
             // 2.3
             //SingleLinkedList result = DeleteTheMidddle(sList, new Node(5));
 
+            // 2.4
+            //SingleLinkedList result = Partition(sList, new Node(10));
+            //nd = result.head;
+            //while (nd != null)
+            //{
+            //    Console.WriteLine(nd.data);
+            //    nd = nd.next;
+            //}
 
-            SingleLinkedList result = Partition(sList, new Node(10));
+            // 2.5
+            Console.WriteLine(SumLists(sList1, sList2));
+            Console.ReadKey();
+        }
 
-            Console.WriteLine();
-
-            nd = result.head;
+        // 2.5
+        static int SumLists(SingleLinkedList list1, SingleLinkedList list2)
+        {
+            int sum = 0;
+            Stack<int> stk1 = new Stack<int>();
+            Node nd = list1.head;
             while (nd != null)
             {
-                Console.WriteLine(nd.data);
+                //Console.WriteLine(nd.data);
+                stk1.Push(nd.data);
                 nd = nd.next;
             }
 
-            Console.ReadKey();
+            String s1 = "";
+            while(stk1.Count > 0)
+            {
+                s1 += stk1.Pop().ToString();
+            }
+
+            Stack<int> stk2 = new Stack<int>();
+            nd = list2.head;
+            while (nd != null)
+            {
+                //Console.WriteLine(nd.data);
+                stk2.Push(nd.data);
+                nd = nd.next;
+            }
+            
+            String s2 = "";
+            while (stk2.Count > 0)
+            {
+                s2 += stk2.Pop().ToString();
+            }
+
+            sum = int.Parse(s1) + int.Parse(s2);
+            return sum;
         }
 
         // 2.4
