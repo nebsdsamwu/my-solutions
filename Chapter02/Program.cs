@@ -13,8 +13,8 @@ namespace Chapter02
             //int[] t = { 9, 4, 2, 5, 5, 5, 5, 7, 12, 4, 4, 4, 4, 43, 9, 2, 7 };
             //int[] t = { 9, 4, 2, 5, 7, 12, 43 };
             //int[] t = { 3, 5, 8, 5, 10, 2, 1, 9, 4, 2, 5, 7, 12, 43 };
-            int[] t1 = { 7, 1, 6 };
-            int[] t2 = { 5, 9, 2 };
+            int[] t1 = { 7, 1, 6, 3, 5, 8};
+            int[] t2 = { 4, 9, 2 };
 
             SingleLinkedList sList1 = new SingleLinkedList();
             foreach (int n in t1)
@@ -26,13 +26,6 @@ namespace Chapter02
             foreach (int n in t2)
             {
                 sList2.AppendToTail(n);
-            }
-            
-            Node nd = sList1.head;
-            while(nd != null)
-            {
-                //Console.WriteLine(nd.data);
-                nd = nd.next;
             }
 
             // 2.1
@@ -67,16 +60,61 @@ namespace Chapter02
             //Console.WriteLine(IsPalindrome(sList3));
 
             // 2.7
-
+            Node d = FindIntersecting(sList1, sList2);
 
             Console.ReadKey();
         }
 
         // 2.7
-        static bool IsIntersecting(SingleLinkedList list1, SingleLinkedList list2)
+        static Node FindIntersecting(SingleLinkedList list1, SingleLinkedList list2)
         {
-            return false;
+            SingleLinkedList[] ma = MergeLinkedLists(list1, list2);
+
+            Node d1 = list1.head;          
+            while(d1 != null)
+            {
+                Node d2 = list2.head;
+                while (d2 != null)
+                {
+                    if (d1 == d2)
+                    {
+                        return d1;
+                    }
+                    d2 = d2.next;
+                }
+                d1 = d1.next;
+            }
+            return null;
         }
+
+        static SingleLinkedList[] MergeLinkedLists(SingleLinkedList sList1, SingleLinkedList sList2)
+        {
+            Node nd2 = sList2.head;
+            while (nd2 != null)
+            {
+                //Console.WriteLine(nd.data);
+                if (nd2.next == null)
+                {
+                    Node nd1 = sList1.head;
+                    {
+                        while (nd1 != null)
+                        {
+                            if (nd1.data == 3)
+                            {
+                                nd2.next = nd1;
+                                break;
+                            }
+                            nd1 = nd1.next;
+                        }
+                    }
+                    break;
+                }
+                nd2 = nd2.next;
+            }
+
+            return new SingleLinkedList[]{sList1, sList2}; 
+        }
+
 
         // 2.6
         static bool IsPalindrome(SingleLinkedList list)
