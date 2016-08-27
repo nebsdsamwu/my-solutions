@@ -60,15 +60,41 @@ namespace Chapter02
             //Console.WriteLine(IsPalindrome(sList3));
 
             // 2.7
-            Node d = FindIntersecting(sList1, sList2);
-
+            Node d = FindIntersecting_v2(sList1, sList2);
+            Console.WriteLine(d.data);
             Console.ReadKey();
+        }
+
+        // 2.7.1
+        static Node FindIntersecting_v2(SingleLinkedList list1, SingleLinkedList list2)
+        {
+            MergeLinkedLists(list1, list2);
+            HashSet<Node> d2Set = new HashSet<Node>();
+
+            Node d2 = list2.head;
+            while (d2 != null)
+            {
+                d2Set.Add(d2);
+                d2 = d2.next;
+            }
+
+
+            Node d1 = list1.head;
+            while (d1 != null)
+            {
+                if (d2Set.Contains(d1))
+                {
+                    return d1;
+                }
+                d1 = d1.next;
+            }
+            return null;
         }
 
         // 2.7
         static Node FindIntersecting(SingleLinkedList list1, SingleLinkedList list2)
         {
-            SingleLinkedList[] ma = MergeLinkedLists(list1, list2);
+            MergeLinkedLists(list1, list2);
 
             Node d1 = list1.head;          
             while(d1 != null)
@@ -87,7 +113,7 @@ namespace Chapter02
             return null;
         }
 
-        static SingleLinkedList[] MergeLinkedLists(SingleLinkedList sList1, SingleLinkedList sList2)
+        static void MergeLinkedLists(SingleLinkedList sList1, SingleLinkedList sList2)
         {
             Node nd2 = sList2.head;
             while (nd2 != null)
@@ -99,7 +125,7 @@ namespace Chapter02
                     {
                         while (nd1 != null)
                         {
-                            if (nd1.data == 3)
+                            if (nd1.data == 5)
                             {
                                 nd2.next = nd1;
                                 break;
@@ -110,9 +136,7 @@ namespace Chapter02
                     break;
                 }
                 nd2 = nd2.next;
-            }
-
-            return new SingleLinkedList[]{sList1, sList2}; 
+            } 
         }
 
 
