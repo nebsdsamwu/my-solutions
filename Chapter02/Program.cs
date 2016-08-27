@@ -55,8 +55,88 @@ namespace Chapter02
             //}
 
             // 2.5
-            Console.WriteLine(SumLists(sList1, sList2));
+            //Console.WriteLine(SumLists(sList1, sList2));
+            
+            // 2.6
+            //string[] sa = {"ra", "ce", "c", "ar" };
+            //SingleLinkedList sList3 = new SingleLinkedList();
+            //foreach (string s in sa)
+            //{
+            //    sList3.AppendToTail(s);
+            //}
+            //Console.WriteLine(IsPalindrome(sList3));
+
+            // 2.7
+
+
             Console.ReadKey();
+        }
+
+        // 2.7
+        static bool IsIntersecting(SingleLinkedList list1, SingleLinkedList list2)
+        {
+            return false;
+        }
+
+        // 2.6
+        static bool IsPalindrome(SingleLinkedList list)
+        {
+            string s = "";
+            Node nd = list.head;
+            while (nd != null)
+            {
+                s += nd.strData;
+                nd = nd.next;
+            }
+            return IsPalindrome(s);
+        }
+
+        static bool IsPalindrome(string s)
+        {
+            char[] chs = s.ToCharArray();
+            var charCnt = new Dictionary<char, int?>();
+
+            for (int i = 0; i < chs.Length; i++)
+            {
+                if (chs[i] == ' ')
+                {
+                    continue;
+                }
+                else
+                {
+                    if (chs[i] < 'a')
+                    {
+                        int cht = (int)chs[i] + 32;
+                        chs[i] = (char)(cht);
+                    }
+                }
+
+                int? cnt = 0;
+                if (charCnt.TryGetValue(chs[i], out cnt))
+                {
+                    cnt += 1;
+                    charCnt[chs[i]] = cnt;
+                }
+                else
+                {
+                    charCnt.Add(chs[i], 1);
+                }
+            }
+
+            int oddCnt = 0;
+            foreach (var kvp in charCnt)
+            {
+                if (kvp.Value % 2 == 0)
+                    continue;
+
+                if (kvp.Value % 2 == 1)
+                {
+                    oddCnt += 1;
+                    if (oddCnt > 1)
+                        return false;
+                }
+            }
+            return true; ;
         }
 
         // 2.5
@@ -242,6 +322,24 @@ namespace Chapter02
             }
         }
 
+        public void AppendToTail(string s)
+        {
+            Node end = new Node(s);
+            if (this.head == null)
+            {
+                this.head = end;
+            }
+            else
+            {
+                Node nd = this.head;
+                while (nd.next != null)
+                {
+                    nd = nd.next;
+                }
+                nd.next = end;
+            }
+        }
+
         // Error, append the actual nd will cause looping when ttry to reach the end
         //public void AppendToTail(Node end)
         //{
@@ -265,10 +363,16 @@ namespace Chapter02
     {
         public Node next = null;
         public int data;
+        public string strData;
 
         public Node(int d)
         {
             data = d;
+        }
+
+        public Node(string s)
+        {
+            strData = s;
         }
     }
 }
