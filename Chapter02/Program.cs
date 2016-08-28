@@ -60,9 +60,57 @@ namespace Chapter02
             //Console.WriteLine(IsPalindrome(sList3));
 
             // 2.7
-            Node d = FindIntersecting_v2(sList1, sList2);
-            Console.WriteLine(d.data);
+            // Node d = FindIntersecting_v2(sList1, sList2);
+            // Console.WriteLine(d.data);
+
+            // 2.8
+            string[] sa = { "a", "b", "c", "d", "e", "f"};
+            SingleLinkedList loopList = new SingleLinkedList();
+            foreach (string s in sa)
+            {
+                loopList.AppendToTail(s);
+            }
+
+            Node lNd = loopList.head;
+            while (lNd != null)
+            {
+                if (lNd.next == null)
+                {
+                    Node iNd = loopList.head;
+                    while (iNd != null)
+                    {
+                        if (iNd.strData == "b")
+                        {
+                            lNd.next = iNd;
+                            break;
+                        }
+                        iNd = iNd.next;
+                    }
+                    break;
+                }
+                lNd = lNd.next;
+            }
+
+            Node d = FindLooped(loopList);
+            Console.WriteLine(d.strData);
+
             Console.ReadKey();
+        }
+
+        // 2.8
+        static Node FindLooped(SingleLinkedList list)
+        {
+            Node nd = list.head;
+            HashSet<Node> ndSet = new HashSet<Node>();
+            while(nd != null)
+            {
+                if (ndSet.Add(nd) != true)
+                {
+                    return nd;
+                }
+                nd = nd.next;
+            }
+            return null;
         }
 
         // 2.7.1
