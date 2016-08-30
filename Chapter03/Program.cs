@@ -34,6 +34,20 @@ namespace Chapter03
         }
     }
 
+    public class ThreeInOne<T>
+    {
+        private static int size = 18;
+        private T[] stackArray = new T[size];
+        public T[] StackArray
+        {
+            get { return stackArray; }
+            set { stackArray = value; }
+        }
+
+
+    }
+
+
     public class MySimpleStack<T>
     {
         private class StackNode<T>

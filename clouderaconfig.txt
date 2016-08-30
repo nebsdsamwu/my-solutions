@@ -1,0 +1,115 @@
+# 0. Install CentOS with the workstation option and choose development tools as many as possible to avoid missing tools.  
+# 1. CentOS system setting -> Network -> Proxy Setting -> Manul
+# 2. yum.conf. (Maybe not necessary)
+# 3. Change hostname.
+# 4. stop/deactivate NetworkManager
+# 5. /etc/hostname
+# 6. Deactivate SELINUX /etc/selinux/config
+# 7. Edit /etc/sysconfig/network-scripts/ifcfg-enp0s3 
+     or Edit /etc/sysconfig/network-scripts/ifcfg-enp0s8
+# 8. iptables off 
+# 9. Use the Repo file: Save the appropriate Cloudera Manager repo file (cloudera-manager.repo) into
+     /etc/yum.repos.d/
+     (The auto installation failed for the cURL link to the Oraclejdk file. Error: curl#5 - "Could not resolve proxy:)     
+# 10. Setup SSH:
+      $> yum -y install perl openssh-clients
+      $> ssh-keygen (type enter, enter, enter)
+      $> cd ~/.ssh
+      $> cp id_rsa.pub authorized_keys
+# 11. Same /etc/hosts on every node.    
+                 
+--------------------------------------------
+
+configs needed to be edited:
+yum.conf  -- needs proxy info
+
+
+------------------
+NM_CONTROLLED=no
+PERSISTENT_DHCLIENT=1
+TYPE=Ethernet
+BOOTPROTO=dhcp
+DEFROUTE=yes
+PEERDNS=yes
+PEERROUTES=yes
+#IPV4_FAILURE_FATAL=no
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_PEERDNS=yes
+IPV6_PEERROUTES=yes
+IPV6_FAILURE_FATAL=no
+NAME=enp0s3
+#UUID=66993f43-1072-43f1-ad3c-fbaf17058254
+DEVICE=enp0s3
+ONBOOT=yes
+
+HWADDR=08:00:27:9A:0D:2C
+--------------------------------------------
+
+
+
+# For yum.conf (Maybe not necessary)
+proxy_username=ABS_CORP\sw9w
+proxy_password=***password***
+proxy=http://s1firewall:8080
+
+# DO NOT CHANGE ORDER
+
+
+
+Automatic configuration script
+http://s1firewall:8080/array.dll?Get.Routing.Script
+
+---
+---
+RHEL-compatible
+Save the appropriate Cloudera Manager repo file (cloudera-manager.repo) for your system:
+OS Version          Repo URL
+RHEL/CentOS/Oracle 5  https://archive.cloudera.com/cm5/redhat/5/x86_64/cm/cloudera-manager.repo
+RHEL/CentOS 6 https://archive.cloudera.com/cm5/redhat/6/x86_64/cm/cloudera-manager.repo
+RHEL/CentOS 7 https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/cloudera-manager.repo
+
+**** Then copy the repo file to the /etc/yum.repos.d/ directory.
+
+----
+PC ipconfig
+----
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . : buyabs.corp
+   Link-local IPv6 Address . . . . . : fe80::5542:f57d:b673:c37d%6
+   IPv4 Address. . . . . . . . . . . : 10.1.63.55
+   Subnet Mask . . . . . . . . . . . : 255.255.254.0
+   Default Gateway . . . . . . . . . : 10.1.62.1
+
+   
+------
+**do not use NetworkManager
+1. chkconfig NetworkManager off
+2. service NetworkManager stop
+3. chkconfig network on
+4. service network restart
+5 .system-config-network
+let me know, for any further issues
+
+
+--
+/var/log/cloudera-manager/ 
+installation error
+--
+
+
+----
+hostname
+----
+hostnamectl status
+hostname set-hostname xxx-new-host-name-xxx
+
+------
+errors
+------
+....
+curl#5 - "Could not resolve proxy:
+No Presto metadata available for cloudera-manager
