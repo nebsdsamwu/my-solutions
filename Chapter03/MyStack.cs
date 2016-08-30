@@ -29,14 +29,14 @@ namespace Chapter03
             return item;
         }
 
-        public void push(T item)
+        public void Push(T item)
         {
             StackNode<T> t = new StackNode<T>(item);
             t.next = top;
             top = t;
         }
 
-        public T peak()
+        public T Peak()
         {
             if (top == null) throw new Exception("stack empty");
             return top.data;

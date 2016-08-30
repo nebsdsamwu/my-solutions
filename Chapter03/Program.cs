@@ -10,6 +10,27 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
+            int[] nums = { 1, 2, 3, 4, 5 };
+            MyStack<int> nStk = new MyStack<int>();
+            MyQueue<int> nQue = new MyQueue<int>();
+
+            foreach (int n in nums)
+            {
+                nStk.Push(n);
+                nQue.Add(n);
+            }
+
+            while(! nStk.IsEmpty())
+            {
+                Console.WriteLine(nStk.Pop());
+            }
+            Console.WriteLine();
+            while (!nQue.IsEmpty())
+            {
+                Console.WriteLine(nQue.Remove());
+            }
+
+            Console.ReadKey();
         }
     }
 
