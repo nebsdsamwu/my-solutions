@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chapter03
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-        }
-    }
-
-    public class MySimpleStack<T>
+    public class MyStack<T>
     {
         private class StackNode<T>
         {
@@ -46,7 +39,7 @@ namespace Chapter03
         public T peak()
         {
             if (top == null) throw new Exception("stack empty");
-            return top.data; 
+            return top.data;
         }
 
         public bool IsEmpty()
