@@ -8,12 +8,12 @@ namespace Chapter03
 {
     public class MyQueue<T>
     {
-        public class QueueNode<T>
+        public class QueueNode<T1>
         {
-            public T data { get; set; }
-            public QueueNode<T> next { get; set; }
+            public T1 data { get; set; }
+            public QueueNode<T1> next { get; set; }
 
-            public QueueNode(T item)
+            public QueueNode(T1 item)
             {
                 this.data = item;
             }

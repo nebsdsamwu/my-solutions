@@ -52,6 +52,20 @@ namespace Chapter03
 
     public class StackNodeArray<T>
     {
+        private int totalsize = 18;
+        public int TotalSize 
+        {
+            get
+            {
+                return TotalSize;
+            }
+
+            set
+            {
+                totalsize = value;
+            }
+        }
+
         StackNode<T>[] Nodes = new StackNode<T>[18];
     }
 
@@ -80,12 +94,6 @@ namespace Chapter03
         {
             return length == stkSize;
         }
-    }
-
-    public class OneTriStack<T>
-    {
-        private static int tSize = 18;
-        public static StackNode<T>[] stackArray = new StackNode<T>[tSize];
     }
 
     public class MySimpleStack<T>

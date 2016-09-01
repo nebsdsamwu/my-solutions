@@ -8,12 +8,12 @@ namespace Chapter03
 {
     public class MyStack<T>
     {
-        private class StackNode<T>
+        private class StackNode<T1>
         {
-            public T data { get; set; }
-            public StackNode<T> next { get; set; }
+            public T1 data { get; set; }
+            public StackNode<T1> next { get; set; }
 
-            public StackNode(T data)
+            public StackNode(T1 data)
             {
                 this.data = data;
             }
