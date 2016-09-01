@@ -84,10 +84,24 @@ namespace Chapter03
             length = 0;
         }
 
-        public void Push(int sn, T data)
+        public void Push()
         {
-            if (length == stkSize) throw new Exception("Stack full");
-            StackNode<T> nd = new StackNode<T>(data);
+            if (length == stkSize) throw new Exception("Stack is full.");
+            topIdx += 1;
+            length += 1;
+        }
+
+        public void Pop()
+        {
+            if (length == 0) throw new Exception("Stack is empty."); 
+            topIdx -= 1;
+            length -= 1;
+        }
+
+        public int Peak()
+        {
+            if (length == 0) throw new Exception("Stack is empty.");
+            return topIdx;
         }
 
         public bool IsFull()
