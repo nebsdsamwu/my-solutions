@@ -10,8 +10,27 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
-            Test();
-
+            //Test();
+            StackNodeArray<int> ary = new StackNodeArray<int>();
+            ary.Push(0, 1);
+            ary.Push(0, 2);
+            ary.Push(1, 3);
+            ary.Push(2, 4);
+            ary.Push(2, 5);
+            ary.Push(1, 9);
+            Console.WriteLine(ary.Pop(0));
+            Console.WriteLine(ary.Pop(2));
+            Console.WriteLine(ary.Pop(1));
+            //ary.Pop(1);
+            //ary.Pop(1);
+            //ary.Pop(1);
+            //ary.Pop(1);
+            //ary.Push(1, 1);
+            //ary.Push(1, 2);
+            //ary.Push(1, 3);
+            //ary.Push(1, 4);
+            //ary.Push(1, 5);
+            //ary.Push(1, 9);
             Console.ReadKey();
         }
 
@@ -52,7 +71,8 @@ namespace Chapter03
 
     public class StackNodeArray<T>
     {
-        private int totalsize = 18;
+        private static int totalsize = 18;
+        private static int oneSize = totalsize / 3;
         public int TotalSize 
         {
             get
@@ -66,47 +86,43 @@ namespace Chapter03
             }
         }
 
-        StackNode<T>[] Nodes = new StackNode<T>[18];
-    }
+        public StackNode<T>[] nodes;
+        int[] tops;
+        int[] lengths;
 
-    public class OneStack<T>
-    {
-        private static int stkSize;
-        public int length { get; set; }
-        public int startIdx { get; set; }
-        public int topIdx { get; set; }
-
-        public OneStack(int index, int size)
+        public StackNodeArray()
         {
-            stkSize = size;
-            startIdx = index;
-            topIdx = index;
-            length = 0;
+            nodes = new StackNode<T>[totalsize];
+            tops = new int[] { 0, oneSize, oneSize * 2 };
+            lengths = new int[] { 0, 0, 0 };
         }
 
-        public void Push()
+        public void Push(int stkNo, T data)
         {
-            if (length == stkSize) throw new Exception("Stack is full.");
-            topIdx += 1;
-            length += 1;
+            if (lengths[stkNo] == oneSize) throw new Exception("Stack " + stkNo + " is full.");
+            if (lengths[stkNo] > 0)
+            {
+                tops[stkNo] += 1;
+            }
+            nodes[tops[stkNo]] = new StackNode<T>(data);
+            lengths[stkNo] += 1;
         }
 
-        public void Pop()
+        public T Pop(int stkNo)
         {
-            if (length == 0) throw new Exception("Stack is empty."); 
-            topIdx -= 1;
-            length -= 1;
+            if (lengths[stkNo] == 0) throw new Exception("Stack " + stkNo + " is empty.");
+            T data = nodes[tops[stkNo]].data;
+            nodes[tops[stkNo]] = null;
+            tops[stkNo] -= 1;
+            lengths[stkNo] -= 1;
+            return data;
         }
 
-        public int Peak()
+        public T Peak(int stkNo)
         {
-            if (length == 0) throw new Exception("Stack is empty.");
-            return topIdx;
-        }
-
-        public bool IsFull()
-        {
-            return length == stkSize;
+            if (lengths[stkNo] == 0) throw new Exception("Stack " + stkNo + " is empty.");
+            T data = nodes[tops[stkNo]].data;
+            return data;
         }
     }
 
