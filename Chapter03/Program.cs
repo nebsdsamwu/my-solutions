@@ -11,6 +11,8 @@ namespace Chapter03
         static void Main(string[] args)
         {
             StackPlate<int> plate = new StackPlate<int>();
+            plate.Push(15);
+            plate.Push(14);
             plate.Push(13);
             plate.Push(12);
             plate.Push(11);
@@ -24,14 +26,18 @@ namespace Chapter03
             plate.Push(3);
             plate.Push(2);
             plate.Push(1);
-            plate.Push(0);
 
+            Console.WriteLine(plate.PopAtIndex(2));
             Console.WriteLine(plate.PopAtIndex(1));
-            Console.WriteLine(plate.PopAtIndex(0));
+            Console.WriteLine(plate.PopAtIndex(3));
+
+
             //while (!plate.IsEmpty())
             //{
             //    Console.WriteLine(plate.Pop());
             //}
+
+
             //Test();
             //TestTriStack();
             Console.ReadKey();
@@ -125,7 +131,6 @@ namespace Chapter03
 
         private Dictionary<int, MyStack<T>> plate;
         private int curSize;
-        MyStack<T> s1 = new MyStack<T>();
 
         public StackPlate()
         {
@@ -157,16 +162,25 @@ namespace Chapter03
 
         public T Pop()
         {
+            if (this.IsEmpty()) throw new Exception("Stack plate is empty.");
             MyStack<T> stk = null;
-            plate.TryGetValue(SN, out stk);
+            if (! plate.TryGetValue(SN, out stk)) throw new Exception("Non-exist Stack");
             T item = stk.Pop();
             curSize -= 1;
             if (curSize == 0)
             {
                 plate.Remove(SN);
                 SN -= 1;
-                curSize = Threshold;
+                if (SN > 0)
+                {
+                    curSize = Threshold;
+                }
             }
+            else
+            {
+                plate[SN] = stk;
+            }
+
             return item;
         }
 
@@ -186,10 +200,15 @@ namespace Chapter03
                 while(! stk.IsEmpty())
                 {
                     tplate.Push(stk.Pop());
+                    curSize -= 1;
                 }
                 plate.Remove(SN);
                 SN -= 1;
-            }
+                if (SN > 0)
+                {
+                    curSize = Threshold;
+                }
+            }  
 
             T item = this.Pop();
 
@@ -211,7 +230,7 @@ namespace Chapter03
 
         public bool IsEmpty()
         {
-            return SN == 0;
+            return SN == 0 && curSize == 0;
         }
     }
 
