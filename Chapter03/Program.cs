@@ -11,6 +11,10 @@ namespace Chapter03
         static void Main(string[] args)
         {
             StackPlate<int> plate = new StackPlate<int>();
+            plate.Push(13);
+            plate.Push(12);
+            plate.Push(11);
+            plate.Push(10);
             plate.Push(9);
             plate.Push(8);
             plate.Push(7);
@@ -18,11 +22,16 @@ namespace Chapter03
             plate.Push(5);
             plate.Push(4);
             plate.Push(3);
+            plate.Push(2);
+            plate.Push(1);
+            plate.Push(0);
 
-            while (!plate.IsEmpty())
-            {
-                Console.WriteLine(plate.Pop());
-            }
+            Console.WriteLine(plate.PopAtIndex(1));
+            Console.WriteLine(plate.PopAtIndex(0));
+            //while (!plate.IsEmpty())
+            //{
+            //    Console.WriteLine(plate.Pop());
+            //}
             //Test();
             //TestTriStack();
             Console.ReadKey();
@@ -158,6 +167,45 @@ namespace Chapter03
                 SN -= 1;
                 curSize = Threshold;
             }
+            return item;
+        }
+
+        public T PopAtIndex(int idx)
+        {
+            if(idx == SN)
+            {
+                return this.Pop();
+            }
+
+            StackPlate<T> tplate = new StackPlate<T>();
+
+            while (SN > idx)
+            {
+                MyStack<T> stk = null;
+                plate.TryGetValue(SN, out stk);
+                while(! stk.IsEmpty())
+                {
+                    tplate.Push(stk.Pop());
+                }
+                plate.Remove(SN);
+                SN -= 1;
+            }
+
+            T item = this.Pop();
+
+            while(! tplate.IsEmpty())
+            {
+                this.Push(tplate.Pop());
+            }
+
+            return item;
+        }
+
+        public T Peak()
+        {
+            MyStack<T> stk = null;
+            plate.TryGetValue(SN, out stk);
+            T item = stk.Peak();
             return item;
         }
 
