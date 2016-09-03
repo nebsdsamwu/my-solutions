@@ -10,17 +10,35 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
+            StackPlate<int> plate = new StackPlate<int>();
+            plate.Push(9);
+            plate.Push(8);
+            plate.Push(7);
+            plate.Push(6);
+            plate.Push(5);
+            plate.Push(4);
+            plate.Push(3);
+
+            while (!plate.IsEmpty())
+            {
+                Console.WriteLine(plate.Pop());
+            }
             //Test();
-            StackNodeArray<int> ary = new StackNodeArray<int>();
-            ary.Push(0, 1);
-            ary.Push(0, 2);
-            ary.Push(1, 3);
-            ary.Push(2, 4);
-            ary.Push(2, 5);
-            ary.Push(1, 9);
-            Console.WriteLine(ary.Pop(0));
-            Console.WriteLine(ary.Pop(2));
-            Console.WriteLine(ary.Pop(1));
+            //TestTriStack();
+            Console.ReadKey();
+        }
+        static void TestTriStack()
+        {
+            //StackNodeArray<int> ary = new StackNodeArray<int>();
+            //ary.Push(0, 1);
+            //ary.Push(0, 2);
+            //ary.Push(1, 3);
+            //ary.Push(2, 4);
+            //ary.Push(2, 5);
+            //ary.Push(1, 9);
+            //Console.WriteLine(ary.Pop(0));
+            //Console.WriteLine(ary.Pop(2));
+            //Console.WriteLine(ary.Pop(1));
             //ary.Pop(1);
             //ary.Pop(1);
             //ary.Pop(1);
@@ -31,7 +49,6 @@ namespace Chapter03
             //ary.Push(1, 4);
             //ary.Push(1, 5);
             //ary.Push(1, 9);
-            Console.ReadKey();
         }
 
         static void Test()
@@ -68,6 +85,88 @@ namespace Chapter03
             this.data = data;
         }
     }
+
+    public class StackPlate<T>
+    {
+        private int threshold = 5;
+        public int Threshold
+        {
+            get
+            {
+                 return threshold;
+            }
+            set
+            {
+                threshold = value;
+            }
+        }
+
+        private int sn = 0;
+        public int SN
+        {
+            get
+            {
+                return sn;
+            }
+            set
+            {
+                sn = value;
+            }
+        }
+
+        private Dictionary<int, MyStack<T>> plate;
+        private int curSize;
+        MyStack<T> s1 = new MyStack<T>();
+
+        public StackPlate()
+        {
+            plate = new Dictionary<int, MyStack<T>>();
+            SN = 1;
+            plate.Add(SN, new MyStack<T>());
+            curSize = 0;
+        }
+
+        public void Push(T item)
+        {
+            if (curSize == Threshold)
+            {
+                MyStack<T> nStk = new MyStack<T>();
+                SN += 1;
+                nStk.Push(item);
+                plate.Add(SN, nStk);
+                curSize = 1;
+            }
+            else
+            {
+                MyStack<T> stk = null; 
+                plate.TryGetValue(SN, out stk);
+                stk.Push(item);
+                plate[SN] = stk;
+                curSize += 1;
+            }
+        }
+
+        public T Pop()
+        {
+            MyStack<T> stk = null;
+            plate.TryGetValue(SN, out stk);
+            T item = stk.Pop();
+            curSize -= 1;
+            if (curSize == 0)
+            {
+                plate.Remove(SN);
+                SN -= 1;
+                curSize = Threshold;
+            }
+            return item;
+        }
+
+        public bool IsEmpty()
+        {
+            return SN == 0;
+        }
+    }
+
 
     public class StackNodeArray<T>
     {
