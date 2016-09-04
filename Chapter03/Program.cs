@@ -10,6 +10,43 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
+            // Test2StackQ();
+            // TestStackPlate();
+            // Test();
+            // TestTriStack();
+            Console.ReadKey();
+        }
+
+        static void Test2StackQ()
+        {
+            TwoStacksQ<int> stkq = new TwoStacksQ<int>();
+            stkq.Add(15);
+            stkq.Add(14);
+            stkq.Add(13);
+            stkq.Add(12);
+            stkq.Add(11);
+            stkq.Add(10);
+            Console.WriteLine(stkq.Remove());
+            Console.WriteLine(stkq.Remove());
+            Console.WriteLine(stkq.Remove());
+            stkq.Add(9);
+            stkq.Add(8);
+            stkq.Add(7);
+            stkq.Add(6);
+            stkq.Add(5);
+            stkq.Add(4);
+            stkq.Add(3);
+            stkq.Add(2);
+            stkq.Add(1);
+
+            while (!stkq.IsEmpty())
+            {
+                Console.WriteLine(stkq.Remove());
+            }
+        }
+
+        static void TestStackPlate()
+        {
             StackPlate<int> plate = new StackPlate<int>();
             plate.Push(15);
             plate.Push(14);
@@ -36,12 +73,8 @@ namespace Chapter03
             //{
             //    Console.WriteLine(plate.Pop());
             //}
-
-
-            //Test();
-            //TestTriStack();
-            Console.ReadKey();
         }
+
         static void TestTriStack()
         {
             //StackNodeArray<int> ary = new StackNodeArray<int>();
@@ -87,6 +120,45 @@ namespace Chapter03
             {
                 Console.WriteLine(nQue.Remove());
             }
+        }
+    }
+
+    public class TwoStacksQ<T>
+    {
+        MyStack<T> stk1;
+        MyStack<T> stk2;
+
+        public TwoStacksQ()
+        {
+            stk1 = new MyStack<T>();
+            stk2 = new MyStack<T>();
+        }
+
+        public void Add(T item)
+        {
+            stk1.Push(item);
+        }
+
+        public T Remove()
+        {
+            while (! stk1.IsEmpty())
+            {
+                stk2.Push(stk1.Pop());
+            }
+
+            T item = stk2.Pop();
+
+            while (! stk2.IsEmpty())
+            {
+                stk1.Push(stk2.Pop());
+            }
+
+            return item;
+        }
+
+        public bool IsEmpty()
+        {
+            return stk1.IsEmpty();
         }
     }
 
