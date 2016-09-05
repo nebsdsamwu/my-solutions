@@ -10,11 +10,55 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
+            MyStack<int> stk = new MyStack<int>();
+            stk.Push(9);
+            stk.Push(8);
+            stk.Push(6);
+            stk.Push(5);
+            stk.Push(2);
+            stk.Push(1);
+            stk.Push(15);
+            stk.Push(14);
+            stk.Push(13);
+            stk.Push(4);
+            stk.Push(3);
+            stk.Push(12);
+            stk.Push(11);
+            stk.Push(10);
+            stk.Push(7);
+            SortStack(stk);
+
             // Test2StackQ();
             // TestStackPlate();
             // Test();
             // TestTriStack();
             Console.ReadKey();
+        }
+
+        static void SortStack(MyStack<int> stk)
+        {
+            if (stk.IsEmpty()) throw new Exception("Stack is empty.");
+
+            MyStack<int> tStk = new MyStack<int>();
+            int min = stk.Peak();
+            int t = min;
+            int cnt = 0;
+            while (!stk.IsEmpty())
+            {
+                cnt += 1;
+                t = stk.Pop();
+                if (t < min) min = t;
+                tStk.Push(t);
+            }
+
+            while (cnt > 0)
+            {
+
+                cnt -= 1;
+            }
+
+
+            Console.WriteLine(min);
         }
 
         static void Test2StackQ()
