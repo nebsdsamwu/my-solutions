@@ -38,27 +38,108 @@ namespace Chapter03
         static void SortStack(MyStack<int> stk)
         {
             if (stk.IsEmpty()) throw new Exception("Stack is empty.");
-
             MyStack<int> tStk = new MyStack<int>();
-            int min = stk.Peak();
-            int t = min;
-            int cnt = 0;
-            while (!stk.IsEmpty())
+
+            int m = stk.Peak();
+            int t = 0;
+            int cnt = -1;
+            int allCnt = 0;
+
+            while (! stk.IsEmpty())
             {
-                cnt += 1;
+                if (cnt == -1) cnt = 0;
                 t = stk.Pop();
-                if (t < min) min = t;
+                if (t > m) m = t;
                 tStk.Push(t);
+                cnt += 1;
             }
+            allCnt = cnt;
 
             while (cnt > 0)
             {
-
+                t = tStk.Pop();
+                if (t != m)
+                {
+                    stk.Push(t);
+                }
                 cnt -= 1;
             }
+            tStk.Push(m);
+            allCnt -= 1;
 
+ #region  test         
+            //// 1.
+            //m = stk.Peak();
+            //while (!stk.IsEmpty())
+            //{
+            //    t = stk.Pop();
+            //    if (t > m) m = t;
+            //    tStk.Push(t);
+            //}
 
-            Console.WriteLine(min);
+            //cnt = allCnt - 1;
+            //while (cnt > 0)
+            //{
+            //    t = tStk.Pop();
+            //    if (t != m)
+            //    {
+            //        stk.Push(t);
+            //    }
+            //    cnt -= 1;
+            //}
+            //tStk.Push(m);
+
+            //// 2.
+            //m = stk.Peak();
+            //while (!stk.IsEmpty())
+            //{
+            //    t = stk.Pop();
+            //    if (t > m) m = t;
+            //    tStk.Push(t);
+            //}
+
+            //cnt = allCnt - 2;
+            //while (cnt > 0)
+            //{
+            //    t = tStk.Pop();
+            //    if (t != m)
+            //    {
+            //        stk.Push(t);
+            //    }
+            //    cnt -= 1;
+            //}
+            //tStk.Push(m);
+            #endregion           
+
+            // n.
+            while (allCnt > 0)
+            {
+                m = stk.Peak();
+                while (!stk.IsEmpty())
+                {
+                    t = stk.Pop();
+                    if (t > m) m = t; 
+                    tStk.Push(t);
+                }
+
+                cnt = allCnt;
+                while (cnt > 0)
+                {
+                    t = tStk.Pop();
+                    if (t != m)
+                    {
+                        stk.Push(t);
+                    }
+                    cnt -= 1;
+                }
+                tStk.Push(m);
+                allCnt -= 1;
+            }
+
+            while (!tStk.IsEmpty())
+            {
+                stk.Push(tStk.Pop());
+            }
         }
 
         static void Test2StackQ()
