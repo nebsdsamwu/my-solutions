@@ -49,7 +49,7 @@ namespace Chapter03
             {
                 if (cnt == -1) cnt = 0;
                 t = stk.Pop();
-                if (t > m) m = t;
+                if (t < m) m = t;
                 tStk.Push(t);
                 cnt += 1;
             }
@@ -67,50 +67,6 @@ namespace Chapter03
             tStk.Push(m);
             allCnt -= 1;
 
- #region  test         
-            //// 1.
-            //m = stk.Peak();
-            //while (!stk.IsEmpty())
-            //{
-            //    t = stk.Pop();
-            //    if (t > m) m = t;
-            //    tStk.Push(t);
-            //}
-
-            //cnt = allCnt - 1;
-            //while (cnt > 0)
-            //{
-            //    t = tStk.Pop();
-            //    if (t != m)
-            //    {
-            //        stk.Push(t);
-            //    }
-            //    cnt -= 1;
-            //}
-            //tStk.Push(m);
-
-            //// 2.
-            //m = stk.Peak();
-            //while (!stk.IsEmpty())
-            //{
-            //    t = stk.Pop();
-            //    if (t > m) m = t;
-            //    tStk.Push(t);
-            //}
-
-            //cnt = allCnt - 2;
-            //while (cnt > 0)
-            //{
-            //    t = tStk.Pop();
-            //    if (t != m)
-            //    {
-            //        stk.Push(t);
-            //    }
-            //    cnt -= 1;
-            //}
-            //tStk.Push(m);
-            #endregion           
-
             // n.
             while (allCnt > 0)
             {
@@ -118,7 +74,7 @@ namespace Chapter03
                 while (!stk.IsEmpty())
                 {
                     t = stk.Pop();
-                    if (t > m) m = t; 
+                    if (t < m) m = t; 
                     tStk.Push(t);
                 }
 
