@@ -10,13 +10,50 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
+            Random rdm = new Random();
+            AnimalArranger arranger = new AnimalArranger();
 
-            // TestSort();
-            // Test2StackQ();
-            // TestStackPlate();
-            // Test();
-            // TestTriStack();
-            Console.ReadKey();
+            for (int i = 0; i < 20; i++)
+            {
+                Animal animal = rdm.Next(0, 2) == 0 ? new Animal("dog", i) : new Animal("cat", i);
+                arranger.Enqueue(animal);
+            }
+
+            foreach(Animal a in arranger.animals)
+            {
+                Console.WriteLine(a.Type + ":" + a.SN.ToString());
+            }
+
+            Console.WriteLine();
+            Animal ani = arranger.DequeueCat();
+            Console.WriteLine(ani.Type + ":" + ani.SN);
+            Console.WriteLine();
+
+            Console.WriteLine();
+            ani = arranger.DequeueDog();
+            Console.WriteLine(ani.Type + ":" + ani.SN);
+            Console.WriteLine();
+
+            Console.WriteLine();
+            ani = arranger.DequeueDog();
+            Console.WriteLine(ani.Type + ":" + ani.SN);
+            Console.WriteLine();
+
+            Console.WriteLine();
+            ani = arranger.DequeueCat();
+            Console.WriteLine(ani.Type + ":" + ani.SN);
+            Console.WriteLine();
+
+            foreach (Animal a in arranger.animals)
+            {
+                Console.WriteLine(a.Type + ":" + a.SN.ToString());
+            }
+                // TestSort();
+                // Test2StackQ();
+                // TestStackPlate();
+                // Test();
+                // TestTriStack();
+                Console.ReadKey();
         }
 
         static void TestSort()
@@ -210,6 +247,85 @@ namespace Chapter03
             {
                 Console.WriteLine(nQue.Remove());
             }
+        }
+    }
+
+    public class AnimalArranger
+    {
+        public LinkedList<Animal> animals; 
+
+        public AnimalArranger()
+        {
+            animals = new LinkedList<Animal>();
+        }
+
+        public void Enqueue(Animal animal)
+        {
+            animals.AddLast(animal);
+        }
+
+        public Animal DequeueAny()
+        {
+            Animal animal = animals.First();
+            animals.RemoveFirst();
+            return animal;
+        }
+
+        public Animal DequeueCat()
+        {
+            Animal animal = null;
+            Animal adopted = null;
+            AnimalArranger aa = new AnimalArranger();
+            while (animals.Count > 0)
+            {
+                animal = animals.First();
+                animals.RemoveFirst();
+                if (adopted == null && animal.Type == "cat")
+                {
+                    adopted = animal;
+                }
+                else
+                {
+                    aa.Enqueue(animal);
+                }
+            }
+
+            this.animals = aa.animals;
+            return adopted;
+        }
+
+        public Animal DequeueDog()
+        {
+            Animal animal = null;
+            Animal adopted = null;
+            AnimalArranger aa = new AnimalArranger();
+            while (animals.Count > 0)
+            {
+                animal = animals.First();
+                animals.RemoveFirst();
+                if (adopted == null && animal.Type == "dog")
+                {
+                    adopted = animal;
+                }
+                else
+                {
+                    aa.Enqueue(animal);
+                }
+            }
+            this.animals = aa.animals;
+            return adopted;
+        }
+    }
+
+    public class Animal
+    {
+        public string Type { get; set; }
+        public int SN { get; set; }
+
+        public Animal(string t, int n)
+        {
+            Type = t;
+            SN = n;
         }
     }
 
