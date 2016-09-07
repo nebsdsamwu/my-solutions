@@ -28,6 +28,11 @@ namespace Chapter03
             stk.Push(7);
             SortStack(stk);
 
+            while (! stk.IsEmpty())
+            {
+                Console.WriteLine(stk.Pop());
+            }
+
             // Test2StackQ();
             // TestStackPlate();
             // Test();
@@ -42,12 +47,11 @@ namespace Chapter03
 
             int m = stk.Peak();
             int t = 0;
-            int cnt = -1;
+            int cnt = 0;
             int allCnt = 0;
 
             while (! stk.IsEmpty())
             {
-                if (cnt == -1) cnt = 0;
                 t = stk.Pop();
                 if (t < m) m = t;
                 tStk.Push(t);
