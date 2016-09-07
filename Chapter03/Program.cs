@@ -10,6 +10,17 @@ namespace Chapter03
     {
         static void Main(string[] args)
         {
+
+            // TestSort();
+            // Test2StackQ();
+            // TestStackPlate();
+            // Test();
+            // TestTriStack();
+            Console.ReadKey();
+        }
+
+        static void TestSort()
+        {
             MyStack<int> stk = new MyStack<int>();
             stk.Push(9);
             stk.Push(8);
@@ -28,16 +39,10 @@ namespace Chapter03
             stk.Push(7);
             SortStack(stk);
 
-            while (! stk.IsEmpty())
+            while (!stk.IsEmpty())
             {
                 Console.WriteLine(stk.Pop());
             }
-
-            // Test2StackQ();
-            // TestStackPlate();
-            // Test();
-            // TestTriStack();
-            Console.ReadKey();
         }
 
         static void SortStack(MyStack<int> stk)
