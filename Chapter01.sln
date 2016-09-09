@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{2F3EE63A
 		clouderaconfig.txt = clouderaconfig.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter04", "Chapter04\Chapter04.csproj", "{D90D3FDA-E885-4609-8DFE-2A2F58139984}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{932D95FE-8928-4391-ADCE-3F41D873FA25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{932D95FE-8928-4391-ADCE-3F41D873FA25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{932D95FE-8928-4391-ADCE-3F41D873FA25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D90D3FDA-E885-4609-8DFE-2A2F58139984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D90D3FDA-E885-4609-8DFE-2A2F58139984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D90D3FDA-E885-4609-8DFE-2A2F58139984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D90D3FDA-E885-4609-8DFE-2A2F58139984}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
