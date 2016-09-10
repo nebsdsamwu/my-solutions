@@ -10,6 +10,10 @@ namespace Chapter04
     {
         static void Main(string[] args)
         {
+            /*        10     
+                  5        20
+                9   18   3     7
+             */
             Node root = new Node(10);
             root.left = new Node(5);
             root.right = new Node(20);
@@ -17,7 +21,19 @@ namespace Chapter04
             root.left.right = new Node(18);
             root.right.left = new Node(3);
             root.right.right = new Node(7);
+
+            InOrderTraverse(root);
             Console.ReadKey();
+        }
+
+        public static void InOrderTraverse(Node nd)
+        {
+            if (nd != null)
+            {
+                InOrderTraverse(nd.left);
+                Console.WriteLine(nd.value);
+                InOrderTraverse(nd.right);
+            }
         }
     }
 
