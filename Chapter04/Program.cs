@@ -22,7 +22,7 @@ namespace Chapter04
             root.right.left = new Node(3);
             root.right.right = new Node(7);
 
-            InOrderTraverse(root);
+            PostOrderTraverse(root);
             Console.ReadKey();
         }
 
@@ -33,6 +33,26 @@ namespace Chapter04
                 InOrderTraverse(nd.left);
                 Console.WriteLine(nd.value);
                 InOrderTraverse(nd.right);
+            }
+        }
+
+        public static void PreOrderTraverse(Node nd)
+        {
+            if (nd != null)
+            {
+                Console.WriteLine(nd.value);
+                PreOrderTraverse(nd.left);
+                PreOrderTraverse(nd.right);
+            }
+        }
+
+        public static void PostOrderTraverse(Node nd)
+        {
+            if (nd != null)
+            {
+                PostOrderTraverse(nd.left);
+                PostOrderTraverse(nd.right);
+                Console.WriteLine(nd.value);
             }
         }
     }
