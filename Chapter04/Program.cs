@@ -10,6 +10,36 @@ namespace Chapter04
     {
         static void Main(string[] args)
         {
+            //TestTree();
+
+            Console.ReadKey();
+        }
+
+        public static void TestGraph()
+        {
+            /*
+             *  0 -> 1 <- 2
+             *  | \  | \  ^
+             *  V  V V  V |
+             *  5   4 <- 3
+             */
+            Node nd00 = new Node(0);
+            Node nd01 = new Node(1);
+            Node nd02 = new Node(2);
+            Node nd03 = new Node(3);
+            Node nd04 = new Node(4);
+            Node nd05 = new Node(5);
+
+            nd00.children = new Node[] {nd01, nd04, nd05};
+            nd01.children = new Node[] { nd03, nd04 };
+            nd02.children = new Node[] { nd01 };
+            nd03.children = new Node[] { nd04 };
+            nd04.children = new Node[] { };
+            nd05.children = new Node[] { };
+        }
+
+        public static void TestTree()
+        {
             /*        10     
                   5        20
                 9   18   3     7
@@ -23,7 +53,6 @@ namespace Chapter04
             root.right.right = new Node(7);
 
             PostOrderTraverse(root);
-            Console.ReadKey();
         }
 
         public static void InOrderTraverse(Node nd)
@@ -55,6 +84,11 @@ namespace Chapter04
                 Console.WriteLine(nd.value);
             }
         }
+    }
+
+    public class Graph
+    {
+        public Node[] nodes { get; set; }
     }
 
     public class Node
