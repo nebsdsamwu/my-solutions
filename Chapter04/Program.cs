@@ -11,7 +11,7 @@ namespace Chapter04
         static void Main(string[] args)
         {
             //TestTree();
-
+            TestGraph();
             Console.ReadKey();
         }
 
@@ -30,12 +30,14 @@ namespace Chapter04
             Node nd04 = new Node(4);
             Node nd05 = new Node(5);
 
-            nd00.children = new Node[] {nd01, nd04, nd05};
+            nd00.children = new Node[] { nd01, nd04, nd05 };
             nd01.children = new Node[] { nd03, nd04 };
             nd02.children = new Node[] { nd01 };
-            nd03.children = new Node[] { nd04 };
+            nd03.children = new Node[] { nd02, nd04 };
             nd04.children = new Node[] { };
             nd05.children = new Node[] { };
+
+            DFSearch(nd00);
         }
 
         public static void TestTree()
@@ -53,6 +55,22 @@ namespace Chapter04
             root.right.right = new Node(7);
 
             PostOrderTraverse(root);
+        }
+
+        // DepthFirstSearch
+        public static void DFSearch(Node root)
+        {
+            if (root == null) return;
+            
+            Console.WriteLine(root.value);
+            root.visited = true;
+            foreach (Node nd in root.children)
+            {
+                if (nd.visited == false)
+                {
+                    DFSearch(nd);
+                }
+            }
         }
 
         public static void InOrderTraverse(Node nd)
@@ -95,6 +113,7 @@ namespace Chapter04
     {
         public string name { get; set; }
         public int value { get; set; }
+        public bool visited { get; set; }
         public Node left { get; set; }
         public Node right { get; set; }
         public Node[] children { get; set; }
@@ -102,22 +121,26 @@ namespace Chapter04
         public Node(string s)
         {
             name = s;
+            visited = false;
         }
 
         public Node(int val)
         {
             value = val;
+            visited = false;
         }
 
         public Node(string s, int val)
         {
             name = s;
             value = val;
+            visited = false;
         }
 
         public Node(Node[] c)
         {
             children = c;
+            visited = false;
         }
     }
 }
