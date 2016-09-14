@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chapter03;
 
 namespace Chapter04
 {
@@ -37,7 +38,7 @@ namespace Chapter04
             nd04.children = new Node[] { };
             nd05.children = new Node[] { };
 
-            DFSearch(nd00);
+            BFSearch(nd00);
         }
 
         public static void TestTree()
@@ -55,6 +56,28 @@ namespace Chapter04
             root.right.right = new Node(7);
 
             PostOrderTraverse(root);
+        }
+
+        // BreadthFirstSearch
+        public static void BFSearch(Node root)
+        {
+            MyQueue<Node> queue = new MyQueue<Node>();
+            root.marked = true;
+            queue.Enqueue(root);
+
+            while(! queue.IsEmpty())
+            {
+                Node nd = queue.Dequeue();
+                Console.WriteLine("visit: " + nd.value);
+                foreach(Node n in nd.children)
+                {
+                    if (! n.marked)
+                    {
+                        n.marked = true;
+                        queue.Enqueue(n);
+                    }
+                }
+            }
         }
 
         // DepthFirstSearch
@@ -117,17 +140,20 @@ namespace Chapter04
         public Node left { get; set; }
         public Node right { get; set; }
         public Node[] children { get; set; }
+        public bool marked { get; set; }
 
         public Node(string s)
         {
             name = s;
             visited = false;
+            marked = false;
         }
 
         public Node(int val)
         {
             value = val;
             visited = false;
+            marked = false;
         }
 
         public Node(string s, int val)
@@ -135,12 +161,14 @@ namespace Chapter04
             name = s;
             value = val;
             visited = false;
+            marked = false;
         }
 
         public Node(Node[] c)
         {
             children = c;
             visited = false;
+            marked = false;
         }
     }
 }

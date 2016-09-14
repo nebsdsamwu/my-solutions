@@ -36,7 +36,33 @@ namespace Chapter03
             }
         }
 
+        public void Enqueue(T item)
+        {
+            QueueNode<T> t = new QueueNode<T>(item);
+            if (last != null)
+            {
+                last.next = t;
+            }
+            last = t;
+            if (first == null)
+            {
+                first = last;
+            }
+        }
+
         public T Remove()
+        {
+            if (first == null) throw new Exception("Queue empty");
+            T data = first.data;
+            first = first.next;
+            if (first == null)
+            {
+                last = null;
+            }
+            return data;
+        }
+
+        public T Dequeue()
         {
             if (first == null) throw new Exception("Queue empty");
             T data = first.data;
