@@ -38,7 +38,34 @@ namespace Chapter04
             nd04.children = new Node[] { };
             nd05.children = new Node[] { };
 
-            BFSearch(nd00);
+            //BFSearch(nd00);
+            Console.WriteLine(HasRoute(nd03, nd00));
+        }
+
+        public static bool HasRoute(Node a, Node b)
+        {
+            MyQueue<Node> que = new MyQueue<Node>();
+            a.marked = true;
+            que.Enqueue(a);
+
+            while (! que.IsEmpty())
+            {
+                Node r = que.Dequeue();
+                Console.WriteLine(r.value);
+                if (r.value == b.value)
+                {
+                    return true;
+                }
+                foreach (Node nd in r.children)
+                {
+                    if (! nd.marked)
+                    {
+                        nd.marked = true;
+                        que.Enqueue(nd);
+                    }
+                }
+            }
+            return false;
         }
 
         public static void TestTree()
