@@ -12,9 +12,40 @@ namespace Chapter04
         static void Main(string[] args)
         {
             //TestTree();
-            TestGraph();
+            //TestGraph();
+
+            BuildBST();
             Console.ReadKey();
         }
+
+        public static void BuildBST()
+        {
+/*
+                 41
+                /  \
+              12    58
+             /  \     \
+            5    26    62
+          /  \     \    \   
+         3    8     35   73
+ */
+            int[] src = {3,5,8,12,26,35,41,58,62,73};
+
+            Node[] nds = new Node[10];
+            for (int i = 0; i < src.Length; i++ )
+            {
+                nds[i] = new Node(src[i]);
+            }
+
+            foreach (Node nd in nds)
+            {
+                Console.WriteLine(nd.value);
+            }
+
+            Node root = new Node(src[0]);
+            //if (src[1] < )
+        }
+
 
         public static void TestGraph()
         {
