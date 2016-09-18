@@ -62,10 +62,10 @@ namespace Chapter04
             int idx = 0;
             int sum = 0;
             int n = 0;
-            while (sum < numbs.Length)
+            while (sum <= numbs.Length)
             {
-                sum = n * (n + 1) / 2;
                 n += 1;
+                sum = n * (n + 1) / 2;     
             }
             Console.WriteLine(sum);
 
