@@ -21,15 +21,26 @@ namespace Chapter04
         public static void BuildBST()
         {
 /*
-                 41
-                /  \
-              12    58
-             /  \     \
-            5    26    62
-          /  \     \    \   
-         3    8     35   73
+ *                 11
+ *                /  \ 
+                 7   12
+               /  \    \
+               4   8    13
+             /  \   \    \
+            2    5   9    14
+          /  \    \   \        
+         1    3    6   10   
+ * 
+ * 
+ *            4
+ *          2   5
+ *        1  3  6 7
+ *        
+ *         3           4
+ *        2 4        2   5
+ *       1   5     1   3
  */
-            int[] src = {3,5,8,12,26,35,41,58,62,73};
+            int[] src = {1,2,3,4,5,6,7,8,9,10};
 
             Node[] nds = new Node[10];
             for (int i = 0; i < src.Length; i++ )
@@ -43,9 +54,23 @@ namespace Chapter04
             }
 
             Node root = new Node(src[0]);
-            //if (src[1] < )
+            RootIndex(src);
         }
 
+        public static int RootIndex(int[] numbs)
+        {
+            int idx = 0;
+            int sum = 0;
+            int n = 0;
+            while (sum < numbs.Length)
+            {
+                sum = n * (n + 1) / 2;
+                n += 1;
+            }
+            Console.WriteLine(sum);
+
+            return idx;
+        }
 
         public static void TestGraph()
         {
