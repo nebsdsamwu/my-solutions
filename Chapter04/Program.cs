@@ -20,16 +20,18 @@ namespace Chapter04
 
         public static void BuildBST()
         {
-/*
- *                 11
+/*       
+ *                   16
+ *                  /  \
+ *                 11  17
  *                /  \ 
                  7   12
                /  \    \
                4   8    13
              /  \   \    \
-            2    5   9    14
-          /  \    \   \        
-         1    3    6   10   
+            2    5   9    14 
+          /  \    \   \    \   
+         1    3    6   10   15
  * 
  * 
  *            4
@@ -40,9 +42,9 @@ namespace Chapter04
  *        2 4        2   5
  *       1   5     1   3
  */
-            int[] src = {1,2,3,4,5,6,7,8,9,10};
+            int[] src = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
 
-            Node[] nds = new Node[10];
+            Node[] nds = new Node[src.Length];
             for (int i = 0; i < src.Length; i++ )
             {
                 nds[i] = new Node(src[i]);
@@ -59,17 +61,30 @@ namespace Chapter04
 
         public static int RootIndex(int[] numbs)
         {
-            int idx = 0;
-            int sum = 0;
+            int rootIdx = 0;
+            int fullLength = 0;
+            int preLength = 0;
             int n = 0;
-            while (sum <= numbs.Length)
-            {
-                n += 1;
-                sum = n * (n + 1) / 2;     
-            }
-            Console.WriteLine(sum);
 
-            return idx;
+            while (fullLength <= numbs.Length)
+            {
+                preLength = fullLength;
+                n += 1;
+                fullLength = n * (n + 1) / 2;          
+            }
+
+            if (numbs.Length > preLength)
+            {
+                rootIdx = preLength + 1;
+            }
+            else // (numbs.Length <= preLength)
+            {
+                rootIdx =  1 + (n - 1) * (n - 2) / 2;
+            }
+
+            Console.WriteLine(rootIdx);
+
+            return rootIdx;
         }
 
         public static void TestGraph()
