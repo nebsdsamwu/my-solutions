@@ -14,11 +14,11 @@ namespace Chapter04
             //TestTree();
             //TestGraph();
 
-            BuildBST();
+            BuildMinHeightBST();
             Console.ReadKey();
         }
 
-        public static void BuildBST()
+        public static void BuildMinHeightBST()
         {
 /*       
  *                   16
@@ -42,7 +42,7 @@ namespace Chapter04
  *        2 4        2   5
  *       1   5     1   3
  */
-            int[] src = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+            int[] src = {1,2,3,5,6};//,7,8,9,10,11,12,13,14,15,16,17,18,19};
 
             Node[] nds = new Node[src.Length];
             for (int i = 0; i < src.Length; i++ )
@@ -56,7 +56,41 @@ namespace Chapter04
             }
 
             Node root = new Node(src[0]);
-            RootIndex(src);
+            //RootIndex(src);
+            Node root4 = new Node(4);
+            Node nd01 = new Node(1);
+
+            foreach (var nd in nds)
+            {
+                InsertToBST(root4, nd);
+            }
+             Console.WriteLine("Inserted.");
+        }
+
+        public static void InsertToBST(Node root, Node node)
+        {
+            if (node.value <= root.value)
+            {
+                if (root.left == null)
+                {
+                    root.left = node;
+                }
+                else
+                {
+                    InsertToBST(root.left, node);
+                }
+            }
+            else
+            {
+                if (root.right == null)
+                {
+                    root.right = node;
+                }
+                else
+                {
+                    InsertToBST(root.right, node);
+                }
+            }
         }
 
         public static int RootIndex(int[] numbs)
