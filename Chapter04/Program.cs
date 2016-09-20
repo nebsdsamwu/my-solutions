@@ -20,51 +20,99 @@ namespace Chapter04
 
         public static void BuildMinHeightBST()
         {
-/*       
- *                   16
- *                  /  \
- *                 11  17
- *                /  \ 
-                 7   12
-               /  \    \
-               4   8    13
-             /  \   \    \
-            2    5   9    14 
-          /  \    \   \    \   
-         1    3    6   10   15
- * 
- * 
- *            4
- *          2   5
- *        1  3  6 7
- *        
- *         3           4
- *        2 4        2   5
- *       1   5     1   3
- */
-            int[] src = {1,2,3,5,6};//,7,8,9,10,11,12,13,14,15,16,17,18,19};
+            /*       
+             *                   16
+             *                  /  \
+             *                 11  17
+             *                /  \   \
+                             7   12   18
+                           /  \    \    \
+                          4    8    13   19
+                         /  \   \    \    \
+                        2    5   9    14   20 
+                      /  \    \   \    \    \
+                     1    3    6   10   15   21
+             * 
+             * 
+             *            4
+             *          2   5
+             *        1  3  6 7
+             *        
+             *         3           4
+             *        2 4        2   5
+             *       1   5     1   3
+             */
+            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+           
+            Queue<int> idxs = FindRootsIdx(src);
 
-            Node[] nds = new Node[src.Length];
-            for (int i = 0; i < src.Length; i++ )
+            int rootIdx = idxs.Dequeue();
+            Node root = new Node(src[rootIdx]);
+            Node cur = null;
+            rootIdx = idxs.Dequeue();
+            for (int i = 1; i < src.Length; i++)
             {
-                nds[i] = new Node(src[i]);
+                Node nd = new Node(src[i]);
+                if (i == rootIdx)
+                {
+                    nd.left = root;
+                    root = nd;
+                    cur = root;
+                    if (idxs.Count > 0)
+                    {
+                        rootIdx = idxs.Dequeue();
+                    }
+                }
+                else
+                {
+                    cur.right = nd;
+                    cur = cur.right;
+                }
+            }
+            InOrderTraverse(root);
+            PreOrderTraverse(root);
+            Console.WriteLine(idxs.Count);
+            #region test InsetBST
+            //Node[] nds = new Node[src.Length];
+            //for (int i = 0; i < src.Length; i++)
+            //{
+            //    nds[i] = new Node(src[i]);
+            //}
+
+            //foreach (Node nd in nds)
+            //{
+            //    Console.WriteLine(nd.value);
+            //}
+
+            //Node root = new Node(src[0]);
+            ////RootIndex(src);
+            //Node root4 = new Node(4);
+            //Node nd01 = new Node(1);
+
+            //foreach (var nd in nds)
+            //{
+            //    InsertToBST(root4, nd);
+            //}
+            //Console.WriteLine("Inserted.");
+            #endregion
+        }
+
+        public static Queue<int> FindRootsIdx(int[] numbs)
+        {
+            Queue<int> rootsIdx = new Queue<int>();
+            int fullLength = 0;
+            int preLength = 0;
+            int n = 0;
+
+            while (fullLength <= numbs.Length)
+            {
+                preLength = fullLength;
+                n += 1;
+                fullLength = n * (n + 1) / 2;
+                rootsIdx.Enqueue(preLength);
             }
 
-            foreach (Node nd in nds)
-            {
-                Console.WriteLine(nd.value);
-            }
-
-            Node root = new Node(src[0]);
-            //RootIndex(src);
-            Node root4 = new Node(4);
-            Node nd01 = new Node(1);
-
-            foreach (var nd in nds)
-            {
-                InsertToBST(root4, nd);
-            }
-             Console.WriteLine("Inserted.");
+            return rootsIdx;
         }
 
         public static void InsertToBST(Node root, Node node)
