@@ -14,11 +14,41 @@ namespace Chapter04
             //TestTree();
             //TestGraph();
 
-            BuildMinHeightBST();
+            Node root = BuildMinHeightBST();
+            List<LinkedList<int>> levels = LevelNodes(root);
+
             Console.ReadKey();
         }
 
-        public static void BuildMinHeightBST()
+        public static List<LinkedList<int>> LevelNodes(Node root)
+        {
+            List<LinkedList<int>> levels = new List<LinkedList<int>>();
+
+            Queue<Node> nds = new Queue<Node>();
+            root.marked = true;
+            nds.Enqueue(root);
+
+            while(nds.Count > 0)
+            {
+                Node nd = nds.Dequeue();
+                Console.WriteLine("Vist:" + nd.value);
+                if (nd.left != null)
+                {
+                    nd.left.marked = true;
+                    nds.Enqueue(nd.left);
+                }
+
+                if (nd.right != null)
+                {
+                    nd.right.marked = true;
+                    nds.Enqueue(nd.right);
+                }
+            }
+
+            return levels;
+        }
+
+        public static Node BuildMinHeightBST()
         {
             /*       
              *                   16
@@ -69,9 +99,12 @@ namespace Chapter04
                     cur = cur.right;
                 }
             }
-            InOrderTraverse(root);
-            PreOrderTraverse(root);
-            Console.WriteLine(idxs.Count);
+
+            //InOrderTraverse(root);
+            //PreOrderTraverse(root);
+            //Console.WriteLine(idxs.Count);
+
+            return root;
             #region test InsetBST
             //Node[] nds = new Node[src.Length];
             //for (int i = 0; i < src.Length; i++)
