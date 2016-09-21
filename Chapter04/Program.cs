@@ -15,23 +15,45 @@ namespace Chapter04
             //TestGraph();
 
             Node root = BuildMinHeightBST();
-            List<LinkedList<int>> levels = LevelNodes(root);
+            List<LinkedList<Node>> levels = LevelNodes(root);
 
             Console.ReadKey();
         }
 
-        public static List<LinkedList<int>> LevelNodes(Node root)
+        public static List<LinkedList<Node>> LevelNodes(Node root)
         {
-            List<LinkedList<int>> levels = new List<LinkedList<int>>();
+            List<LinkedList<Node>> levels = new List<LinkedList<Node>>();
 
             Queue<Node> nds = new Queue<Node>();
             root.marked = true;
+            //LinkedList<Node> rootLvl = new LinkedList<Node>();
+            //rootLvl.AddLast(root);
+            //levels.Add(rootLvl);
             nds.Enqueue(root);
+            int capacity = 1;
+            int lvlcnt = 0;
+            LinkedList<Node> list = new LinkedList<Node>(); ;
 
             while(nds.Count > 0)
             {
                 Node nd = nds.Dequeue();
                 Console.WriteLine("Vist:" + nd.value);
+                //if (capacity != 0)
+                //{
+                //    list.AddLast(nd);
+                //    capacity -= 1;
+                //}
+                if (capacity == 0)
+                {
+                    levels.Add(list);
+                    list = new LinkedList<Node>();  
+                    lvlcnt += 1;
+                    capacity = 2 ^ lvlcnt;
+                }
+
+                list.AddLast(nd);
+                capacity -= 1;
+
                 if (nd.left != null)
                 {
                     nd.left.marked = true;
