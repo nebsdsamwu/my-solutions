@@ -48,7 +48,7 @@ namespace Chapter04
                     levels.Add(list);
                     list = new LinkedList<Node>();  
                     lvlcnt += 1;
-                    capacity = 2 ^ lvlcnt;
+                    capacity = (int)(Math.Pow(2, lvlcnt));
                 }
 
                 list.AddLast(nd);
