@@ -20,7 +20,7 @@ namespace Chapter04
             Console.ReadKey();
         }
 
-        public static List<LinkedList<Node>> LevelNodes(Node root)
+        public static List<LinkedList<Node>> LevelNodesCmplt(Node root)
         {
             List<LinkedList<Node>> levels = new List<LinkedList<Node>>();
 
@@ -65,6 +65,72 @@ namespace Chapter04
                     nd.right.marked = true;
                     nds.Enqueue(nd.right);
                 }
+
+                if (nds.Count == 0)
+                {
+                    levels.Add(list);
+                }
+            }
+
+            return levels;
+        }
+
+        public static List<LinkedList<Node>> LevelNodes(Node root)
+        {
+            List<LinkedList<Node>> levels = new List<LinkedList<Node>>();
+
+            Queue<Node> nds = new Queue<Node>();
+            root.marked = true;
+            //LinkedList<Node> rootLvl = new LinkedList<Node>();
+            //rootLvl.AddLast(root);
+            //levels.Add(rootLvl);
+            nds.Enqueue(root);
+            int capacity = 1;
+            int lvlcnt = 0;
+            LinkedList<Node> list = new LinkedList<Node>(); ;
+
+            while (nds.Count > 0)
+            {
+                Node nd = nds.Dequeue();
+                Console.WriteLine("Vist:" + nd.value);
+                if (capacity == 0)
+                {
+                    levels.Add(list);
+                    list = new LinkedList<Node>();
+                    lvlcnt += 1;
+                    capacity = (int)(Math.Pow(2, lvlcnt));
+                }
+
+                if (nd.name != "empty")
+                {
+                    list.AddLast(nd);
+                    if (nd.left != null)
+                    {
+                        nd.left.marked = true;
+                        nds.Enqueue(nd.left);
+                    }
+                    else
+                    {
+                        nds.Enqueue(new Node("empty"));
+                    }
+
+                    if (nd.right != null && nd.name != "empty")
+                    {
+                        nd.right.marked = true;
+                        nds.Enqueue(nd.right);
+                    }
+                    else
+                    {
+                        nds.Enqueue(new Node("empty"));
+                    }
+                }
+
+                capacity -= 1;
+
+                if (nds.Count == 0)
+                {
+                    levels.Add(list);
+                }
             }
 
             return levels;
@@ -81,9 +147,9 @@ namespace Chapter04
                            /  \    \    \
                           4    8    13   19
                          /  \   \    \    \
-                        2    5   9    14   20 
+                        2    5   9    14  [20] 
                       /  \    \   \    \    \
-                     1    3    6   10   15   21
+                     1    3    6   10   15  [21]
              * 
              * 
              *            4
