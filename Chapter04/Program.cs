@@ -81,48 +81,67 @@ namespace Chapter04
 
             Queue<Node> nds = new Queue<Node>();
             root.marked = true;
-            //LinkedList<Node> rootLvl = new LinkedList<Node>();
-            //rootLvl.AddLast(root);
-            //levels.Add(rootLvl);
             nds.Enqueue(root);
             int capacity = 1;
+            int capacityBak = capacity;
             int lvlcnt = 0;
-            LinkedList<Node> list = new LinkedList<Node>(); ;
+            int emptyCnt = 0;
+            LinkedList<Node> list = new LinkedList<Node>();
 
             while (nds.Count > 0)
             {
                 Node nd = nds.Dequeue();
                 Console.WriteLine("Vist:" + nd.value);
+
+                if (nd.name == "empty")
+                {
+                    emptyCnt += 1;
+                }
+
+                if (emptyCnt == capacityBak)
+                {
+                    break;
+                }
+
                 if (capacity == 0)
                 {
                     levels.Add(list);
                     list = new LinkedList<Node>();
                     lvlcnt += 1;
+                    emptyCnt = 0;
                     capacity = (int)(Math.Pow(2, lvlcnt));
+                    capacityBak = capacity;
                 }
 
                 if (nd.name != "empty")
                 {
                     list.AddLast(nd);
-                    if (nd.left != null)
-                    {
-                        nd.left.marked = true;
-                        nds.Enqueue(nd.left);
-                    }
-                    else
-                    {
-                        nds.Enqueue(new Node("empty"));
-                    }
+                }
 
-                    if (nd.right != null && nd.name != "empty")
-                    {
-                        nd.right.marked = true;
-                        nds.Enqueue(nd.right);
-                    }
-                    else
-                    {
-                        nds.Enqueue(new Node("empty"));
-                    }
+                if (nd.left != null)
+                {
+                    nd.left.marked = true;
+                    nds.Enqueue(nd.left);
+                }
+                else
+                {
+                    Node empty = new Node("empty");
+                    empty.left = new Node("empty");
+                    empty.right = new Node("empty"); ;
+                    nds.Enqueue(empty);
+                }
+
+                if (nd.right != null && nd.name != "empty")
+                {
+                    nd.right.marked = true;
+                    nds.Enqueue(nd.right);
+                }
+                else
+                {
+                    Node empty = new Node("empty");
+                    empty.left = new Node("empty");
+                    empty.right = new Node("empty"); ;
+                    nds.Enqueue(empty);
                 }
 
                 capacity -= 1;
@@ -132,7 +151,6 @@ namespace Chapter04
                     levels.Add(list);
                 }
             }
-
             return levels;
         }
 
