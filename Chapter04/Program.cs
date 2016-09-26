@@ -15,66 +15,86 @@ namespace Chapter04
             //TestGraph();
 
             Node root = BuildMinHeightBST();
-            List<LinkedList<Node>> levels = LevelNodes(root);
-
+            //List<LinkedList<Node>> levels = LevelNodes(root);
+            Console.WriteLine(IsBalance(root));
             Console.ReadKey();
         }
 
-        public static List<LinkedList<Node>> LevelNodesCmplt(Node root)
+        // 4.4
+        public static bool IsBalance(Node root)
         {
-            List<LinkedList<Node>> levels = new List<LinkedList<Node>>();
-
             Queue<Node> nds = new Queue<Node>();
             root.marked = true;
-            //LinkedList<Node> rootLvl = new LinkedList<Node>();
-            //rootLvl.AddLast(root);
-            //levels.Add(rootLvl);
             nds.Enqueue(root);
             int capacity = 1;
+            int capacityBak = capacity;
             int lvlcnt = 0;
-            LinkedList<Node> list = new LinkedList<Node>(); ;
+            int emptyCnt = 0;
+            int unbalanceCnt = 0;
 
-            while(nds.Count > 0)
+            while (nds.Count > 0)
             {
                 Node nd = nds.Dequeue();
                 Console.WriteLine("Vist:" + nd.value);
-                //if (capacity != 0)
-                //{
-                //    list.AddLast(nd);
-                //    capacity -= 1;
-                //}
-                if (capacity == 0)
+
+                if (nd.name == "empty")
                 {
-                    levels.Add(list);
-                    list = new LinkedList<Node>();  
-                    lvlcnt += 1;
-                    capacity = (int)(Math.Pow(2, lvlcnt));
+                    emptyCnt += 1;
                 }
 
-                list.AddLast(nd);
-                capacity -= 1;
+                if (emptyCnt == capacityBak)
+                {
+                    break;
+                }
+
+                if (capacity == 0)
+                {
+                    if (emptyCnt > 0) 
+                    {
+                        unbalanceCnt += 1;
+                        if (unbalanceCnt > 1)
+                        {
+                            return false;
+                        }
+                    }
+                    lvlcnt += 1;
+                    emptyCnt = 0;
+                    capacity = (int)(Math.Pow(2, lvlcnt));
+                    capacityBak = capacity;
+                }
 
                 if (nd.left != null)
                 {
                     nd.left.marked = true;
                     nds.Enqueue(nd.left);
                 }
+                else
+                {
+                    Node empty = new Node("empty");
+                    empty.left = new Node("empty");
+                    empty.right = new Node("empty"); ;
+                    nds.Enqueue(empty);
+                }
 
-                if (nd.right != null)
+                if (nd.right != null && nd.name != "empty")
                 {
                     nd.right.marked = true;
                     nds.Enqueue(nd.right);
                 }
-
-                if (nds.Count == 0)
+                else
                 {
-                    levels.Add(list);
+                    Node empty = new Node("empty");
+                    empty.left = new Node("empty");
+                    empty.right = new Node("empty"); ;
+                    nds.Enqueue(empty);
                 }
-            }
 
-            return levels;
+                capacity -= 1;
+            }
+            return true;
         }
 
+        // 4.3 
         public static List<LinkedList<Node>> LevelNodes(Node root)
         {
             List<LinkedList<Node>> levels = new List<LinkedList<Node>>();
@@ -154,6 +174,7 @@ namespace Chapter04
             return levels;
         }
 
+        // 4.2
         public static Node BuildMinHeightBST()
         {
             /*       
@@ -165,7 +186,7 @@ namespace Chapter04
                            /  \    \    \
                           4    8    13   19
                          /  \   \    \    \
-                        2    5   9    14  [20] 
+                        2    5   9    14   20 
                       /  \    \   \    \    \
                      1    3    6   10   15  [21]
              * 
@@ -178,7 +199,7 @@ namespace Chapter04
              *        2 4        2   5
              *       1   5     1   3
              */
-            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+            int[] src = { 1, 2, 3};//, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
            
             Queue<int> idxs = FindRootsIdx(src);
 
