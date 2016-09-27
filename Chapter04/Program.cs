@@ -15,9 +15,38 @@ namespace Chapter04
             //TestGraph();
 
             Node root = BuildMinHeightBST();
+            Console.WriteLine(CheckBST(root));
             //List<LinkedList<Node>> levels = LevelNodes(root);
-            Console.WriteLine(IsBalance(root));
+            //Console.WriteLine(IsBalance(root));
             Console.ReadKey();
+        }
+
+        // 4.5
+        public static bool CheckBST(Node root)
+        {
+            int pre = -99999;
+            bool isBST = true;
+            return IsBST(root, pre, isBST);
+        }
+
+        public static bool IsBST(Node root, int pre, bool isBST)
+        {
+            if (root != null)
+            {
+                isBST = IsBST(root.left, pre, isBST);
+                if (!isBST) return false;
+                Console.WriteLine(root.value);
+                if (root.value >= pre)
+                {
+                    pre = root.value;
+                }
+                else 
+                {
+                    return false;
+                }
+                isBST = IsBST(root.right, pre, isBST);
+            }
+            return isBST;
         }
 
         // 4.4
@@ -199,7 +228,7 @@ namespace Chapter04
              *        2 4        2   5
              *       1   5     1   3
              */
-            int[] src = { 1, 2, 3};//, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
+            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
            
             Queue<int> idxs = FindRootsIdx(src);
 
@@ -394,8 +423,8 @@ namespace Chapter04
             root.left.right = new Node(18);
             root.right.left = new Node(3);
             root.right.right = new Node(7);
-
-            PostOrderTraverse(root);
+            Console.WriteLine(CheckBST(root));
+            //PostOrderTraverse(root);
         }
 
         // BreadthFirstSearch
