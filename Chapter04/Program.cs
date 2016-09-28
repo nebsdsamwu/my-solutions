@@ -63,6 +63,8 @@ namespace Chapter04
 
                     case "f": 
                         f.parent = null;
+                        f.kids.Add(b);
+                        f.kids.Add(a);
                         break;
 
                     default: nd = new Node("empty");
@@ -90,22 +92,52 @@ namespace Chapter04
             //dps.Add(d5);
             #endregion
 
-            FindOrder(prjs);
+            List<string> result = FindOrder(prjs);
 
             Console.ReadKey();
         }
 
         // 4.7 
-        public static List<Node> FindOrder(List<Node> prjs)
+        public static List<string> FindOrder(List<Node> prjs)
         {
+            // find starts
+            List<Node> starts = new List<Node>();
+            foreach (Node nd in prjs)
+            {
+                if (nd.parent == null)
+                {
+                    starts.Add(nd);
+                }
+            }
 
+            List<string> order = new List<string>();
 
-
-            List<Node> order = new List<Node>();
-
-
+            foreach (Node nd in starts)
+            {
+                DFSOrder(nd, order);
+            }
 
             return order;
+        }
+
+        public static void DFSOrder(Node root, List<string> order)
+        {
+            if (root == null) return;
+
+            Console.WriteLine(root.name);
+            if (!root.visited)
+            {
+                order.Add(root.name);
+                root.visited = true;
+            }
+
+            if (root.kids != null)
+            {
+                foreach (Node nd in root.kids)
+                {
+                    DFSOrder(nd, order);
+                }
+            }
         }
 
         // 4.6
