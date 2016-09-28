@@ -13,12 +13,112 @@ namespace Chapter04
         {
             //TestTree();
             //TestGraph();
-
-            Node root = BuildMinHeightBST();
-            Console.WriteLine(CheckBST(root));
+            // 4.6
+            //Node root = BuildMinHeightBST();
+            //Node pre = new Node(8);
+            //Console.WriteLine(FindNext(root, pre, null).value);
+            //Console.WriteLine(CheckBST(root));
             //List<LinkedList<Node>> levels = LevelNodes(root);
             //Console.WriteLine(IsBalance(root));
+
+            // 4.7
+            List<Node> prjs = new List<Node>();
+            string[] names = { "a","b","c","d","e","f"};
+            Node a = new Node("a");
+            Node b = new Node("b");
+            Node c = new Node("c");
+            Node d = new Node("d");
+            Node e = new Node("e");
+            Node f = new Node("f");
+
+            foreach (string name in names)
+            {
+                Node nd = null;
+                switch (name)
+                {
+                    case "a":
+                        a.parent = f;
+                        f.kids.Add(a);
+                        break;
+
+                    case "b": 
+                        b.parent = f;
+                        f.kids.Add(b);
+                        break;
+
+                    case "c": 
+                        c.parent = d;
+                        d.kids.Add(c);
+                        break;
+
+                    case "d":
+                        d.parent = b;
+                        b.kids.Add(d);
+                        break;
+
+                    case "e": 
+                        e.parent = null;
+                        e.kids = null;
+                        break;
+
+                    case "f": 
+                        f.parent = null;
+                        break;
+
+                    default: nd = new Node("empty");
+                        break;             
+                }
+                prjs.Add(new Node(name));
+            }
+
+            #region dpns
+            //List<Node[]> dps = new List<Node[]>();
+            //Node[] d1 = { new Node("a"), new Node("d") };
+            //Node[] d2 = { new Node("f"), new Node("b") };
+            //Node[] d3 = { new Node("b"), new Node("d") };
+            //Node[] d4 = { new Node("f"), new Node("a") };
+            //Node[] d5 = { new Node("d"), new Node("c") };
+            //dps.Add(d1);
+            //dps.Add(d2);
+            //dps.Add(d3);
+            //dps.Add(d4);
+            //dps.Add(d5);
+            #endregion
+
+            FindOrder(prjs);
+
             Console.ReadKey();
+        }
+
+        // 4.7 
+        public static List<Node> FindOrder(List<Node> prjs)
+        {
+
+
+
+            List<Node> order = new List<Node>();
+
+
+
+            return order;
+        }
+
+        // 4.6
+        public static Node FindNext(Node root, Node pre, Node result)
+        {
+            if (result != null) return result;
+
+            if (root != null)
+            {
+                result = FindNext(root.left, pre, result);
+                //Console.WriteLine(root.value);
+                if (root.parent!= null && root.parent.ValEqual(pre))
+                {
+                    return root;
+                }
+                result = FindNext(root.right, pre, result);
+            }
+            return result;
         }
 
         // 4.5
@@ -230,6 +330,91 @@ namespace Chapter04
              */
             int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
            
+            Queue<int> idxs = FindRootsIdx(src);
+
+            int rootIdx = idxs.Dequeue();
+            Node root = new Node(src[rootIdx]);
+            Node cur = null;
+            rootIdx = idxs.Dequeue();
+
+            for (int i = 1; i < src.Length; i++)
+            {
+                Node nd = new Node(src[i]);
+                if (i == rootIdx)
+                {
+                    nd.left = root;
+                    root.parent = nd;
+                    root = nd;
+                    cur = root;
+                    if (idxs.Count > 0)
+                    {
+                        rootIdx = idxs.Dequeue();
+                    }
+                }
+                else
+                {
+                    cur.right = nd;
+                    nd.parent = cur;
+                    cur = cur.right;
+                }
+            }
+
+            //InOrderTraverse(root);
+            //PreOrderTraverse(root);
+            //Console.WriteLine(idxs.Count);
+
+            return root;
+            #region test InsetBST
+            //Node[] nds = new Node[src.Length];
+            //for (int i = 0; i < src.Length; i++)
+            //{
+            //    nds[i] = new Node(src[i]);
+            //}
+
+            //foreach (Node nd in nds)
+            //{
+            //    Console.WriteLine(nd.value);
+            //}
+
+            //Node root = new Node(src[0]);
+            ////RootIndex(src);
+            //Node root4 = new Node(4);
+            //Node nd01 = new Node(1);
+
+            //foreach (var nd in nds)
+            //{
+            //    InsertToBST(root4, nd);
+            //}
+            //Console.WriteLine("Inserted.");
+            #endregion
+        }
+
+        public static Node BuildMinHeightBST_V1()
+        {
+            /*       
+             *                   16
+             *                  /  \
+             *                 11  17
+             *                /  \   \
+                             7   12   18
+                           /  \    \    \
+                          4    8    13   19
+                         /  \   \    \    \
+                        2    5   9    14   20 
+                      /  \    \   \    \    \
+                     1    3    6   10   15  [21]
+             * 
+             * 
+             *            4
+             *          2   5
+             *        1  3  6 7
+             *        
+             *         3           4
+             *        2 4        2   5
+             *       1   5     1   3
+             */
+            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
+
             Queue<int> idxs = FindRootsIdx(src);
 
             int rootIdx = idxs.Dequeue();
@@ -508,7 +693,9 @@ namespace Chapter04
         public bool visited { get; set; }
         public Node left { get; set; }
         public Node right { get; set; }
+        public Node parent { get; set; }
         public Node[] children { get; set; }
+        public List<Node> kids { get; set; }
         public bool marked { get; set; }
 
         public Node(string s)
@@ -538,6 +725,16 @@ namespace Chapter04
             children = c;
             visited = false;
             marked = false;
+        }
+
+        public bool ValEqual(Node cur)
+        {
+            return this.value == cur.value;
+        }
+
+        public bool NameEqual(Node cur)
+        {
+            return this.name == cur.name;
         }
     }
 }
