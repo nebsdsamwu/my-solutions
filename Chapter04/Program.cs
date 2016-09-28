@@ -68,8 +68,13 @@ namespace Chapter04
                     default: nd = new Node("empty");
                         break;             
                 }
-                prjs.Add(new Node(name));
             }
+            prjs.Add(a);
+            prjs.Add(b);
+            prjs.Add(c);
+            prjs.Add(d);
+            prjs.Add(e);
+            prjs.Add(f);
 
             #region dpns
             //List<Node[]> dps = new List<Node[]>();
@@ -706,6 +711,7 @@ namespace Chapter04
             name = s;
             visited = false;
             marked = false;
+            kids = new List<Node>();
         }
 
         public Node(int val)
@@ -713,6 +719,7 @@ namespace Chapter04
             value = val;
             visited = false;
             marked = false;
+            kids = new List<Node>();
         }
 
         public Node(string s, int val)
@@ -721,6 +728,7 @@ namespace Chapter04
             value = val;
             visited = false;
             marked = false;
+            kids = new List<Node>();
         }
 
         public Node(Node[] c)
@@ -728,6 +736,7 @@ namespace Chapter04
             children = c;
             visited = false;
             marked = false;
+            kids = new List<Node>();
         }
 
         public bool ValEqual(Node cur)
