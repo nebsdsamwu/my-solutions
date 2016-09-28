@@ -134,7 +134,9 @@ namespace Chapter04
             if (root != null)
             {
                 isBST = IsBST(root.left, pre, isBST);
+
                 if (!isBST) return false;
+
                 Console.WriteLine(root.value);
                 if (root.value >= pre)
                 {
@@ -144,6 +146,7 @@ namespace Chapter04
                 {
                     return false;
                 }
+
                 isBST = IsBST(root.right, pre, isBST);
             }
             return isBST;
