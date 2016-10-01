@@ -13,15 +13,16 @@ namespace Chapter04
         {
             //TestTree();
             //TestGraph();
+
             // 4.6
-            //Node root = BuildMinHeightBST();
+            //Node root = BuildMinHeightBST_V1();
             //Node pre = new Node(8);
             //Console.WriteLine(FindNext(root, pre, null).value);
             //Console.WriteLine(CheckBST(root));
             //List<LinkedList<Node>> levels = LevelNodes(root);
             //Console.WriteLine(IsBalance(root));
 
-            // 4.7
+            #region // 4.7
             List<Node> prjs = new List<Node>();
             string[] names = { "a","b","c","d","e","f"};
             Node a = new Node("a");
@@ -78,6 +79,9 @@ namespace Chapter04
             prjs.Add(e);
             prjs.Add(f);
 
+            //List<string> result = FindOrder(prjs);
+            #endregion
+
             #region dpns
             //List<Node[]> dps = new List<Node[]>();
             //Node[] d1 = { new Node("a"), new Node("d") };
@@ -92,9 +96,89 @@ namespace Chapter04
             //dps.Add(d5);
             #endregion
 
-            List<string> result = FindOrder(prjs);
+            // 4.8
+            Node[] nds = BuildBSTAndGetNodes();
+            InOrderTraverse(nds[0]);
 
             Console.ReadKey();
+        }
+
+        // 4.8
+        public static Node FindCommon(Node d1, Node d2)
+        {
+            Node cmn = null;
+
+
+            return cmn;
+        }
+
+        public static Node[] BuildBSTAndGetNodes()
+        {
+            /*       
+             *                   16
+             *                  /  \
+             *                 11  17
+             *                /  \   \
+                             7   12   18
+                           /  \    \    \
+                          4    8    13   19
+                         /  \   \    \    \
+                        2    5   9    14   20 
+                      /  \    \   \    \    \
+                     1    3    6   10   15  [21]
+             * 
+             * 
+             *            4
+             *          2   5
+             *        1  3  6 7
+             *        
+             *         3           4
+             *        2 4        2   5
+             *       1   5     1   3
+             */
+            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };//, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
+            Node[] nodes = new Node[3];
+
+            Queue<int> idxs = FindRootsIdx(src);
+
+            int rootIdx = idxs.Dequeue();
+            Node root = new Node(src[rootIdx]);
+            Node cur = null;
+            rootIdx = idxs.Dequeue();
+
+            for (int i = 1; i < src.Length; i++)
+            {
+                Node nd = new Node(src[i]);
+                if (i == rootIdx)
+                {
+                    nd.left = root;
+                    root.parent = nd;
+                    root = nd;
+                    cur = root;
+                    if (idxs.Count > 0)
+                    {
+                        rootIdx = idxs.Dequeue();
+                    }
+                }
+                else
+                {
+                    cur.right = nd;
+                    nd.parent = cur;
+                    cur = cur.right;
+                }
+
+                if (i == 1)
+                {
+                    nodes[1] = nd;
+                }
+
+                if (i == 5)
+                {
+                    nodes[2] = nd;
+                }
+            }
+            nodes[0] = root;
+            return nodes;
         }
 
         // 4.7 
@@ -341,92 +425,6 @@ namespace Chapter04
                 }
             }
             return levels;
-        }
-
-        // 4.2
-        public static Node BuildMinHeightBST()
-        {
-            /*       
-             *                   16
-             *                  /  \
-             *                 11  17
-             *                /  \   \
-                             7   12   18
-                           /  \    \    \
-                          4    8    13   19
-                         /  \   \    \    \
-                        2    5   9    14   20 
-                      /  \    \   \    \    \
-                     1    3    6   10   15  [21]
-             * 
-             * 
-             *            4
-             *          2   5
-             *        1  3  6 7
-             *        
-             *         3           4
-             *        2 4        2   5
-             *       1   5     1   3
-             */
-            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
-           
-            Queue<int> idxs = FindRootsIdx(src);
-
-            int rootIdx = idxs.Dequeue();
-            Node root = new Node(src[rootIdx]);
-            Node cur = null;
-            rootIdx = idxs.Dequeue();
-
-            for (int i = 1; i < src.Length; i++)
-            {
-                Node nd = new Node(src[i]);
-                if (i == rootIdx)
-                {
-                    nd.left = root;
-                    root.parent = nd;
-                    root = nd;
-                    cur = root;
-                    if (idxs.Count > 0)
-                    {
-                        rootIdx = idxs.Dequeue();
-                    }
-                }
-                else
-                {
-                    cur.right = nd;
-                    nd.parent = cur;
-                    cur = cur.right;
-                }
-            }
-
-            //InOrderTraverse(root);
-            //PreOrderTraverse(root);
-            //Console.WriteLine(idxs.Count);
-
-            return root;
-            #region test InsetBST
-            //Node[] nds = new Node[src.Length];
-            //for (int i = 0; i < src.Length; i++)
-            //{
-            //    nds[i] = new Node(src[i]);
-            //}
-
-            //foreach (Node nd in nds)
-            //{
-            //    Console.WriteLine(nd.value);
-            //}
-
-            //Node root = new Node(src[0]);
-            ////RootIndex(src);
-            //Node root4 = new Node(4);
-            //Node nd01 = new Node(1);
-
-            //foreach (var nd in nds)
-            //{
-            //    InsertToBST(root4, nd);
-            //}
-            //Console.WriteLine("Inserted.");
-            #endregion
         }
 
         public static Node BuildMinHeightBST_V1()
