@@ -98,18 +98,34 @@ namespace Chapter04
 
             // 4.8
             Node[] nds = BuildBSTAndGetNodes();
-            InOrderTraverse(nds[0]);
-
+            //InOrderTraverse(nds[0]);
+            Node cmn = FindCommon(nds[1], nds[2]);
             Console.ReadKey();
         }
 
         // 4.8
         public static Node FindCommon(Node d1, Node d2)
         {
-            Node cmn = null;
+            if (d1.ValEqual(d2)) return d1;
 
+            Node nd1 = d1.parent;
+            Node nd2 = d2.parent;
+            while (nd1 != null)
+            {
+                Console.WriteLine(nd1.value);
+                while(nd2 != null)
+                {
+                    if (nd2.ValEqual(nd1))
+                    {
+                        return nd2;
+                    }
+                    nd2 = nd2.parent;
+                }
+                nd2 = d2.parent;
+                nd1 = nd1.parent;
+            }
 
-            return cmn;
+            return null;
         }
 
         public static Node[] BuildBSTAndGetNodes()
@@ -136,7 +152,7 @@ namespace Chapter04
              *        2 4        2   5
              *       1   5     1   3
              */
-            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };//, 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
+            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15, 16, 17, 18, 19};//, 20 };
             Node[] nodes = new Node[3];
 
             Queue<int> idxs = FindRootsIdx(src);
@@ -167,12 +183,12 @@ namespace Chapter04
                     cur = cur.right;
                 }
 
-                if (i == 1)
+                if (i == 3)
                 {
                     nodes[1] = nd;
                 }
 
-                if (i == 5)
+                if (i == 13)
                 {
                     nodes[2] = nd;
                 }
