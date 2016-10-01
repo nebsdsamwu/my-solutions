@@ -110,11 +110,52 @@ namespace Chapter04
         // 4.9
         public static void FindSequence(Node root)
         {
-            List<Node> ds = BFS(root);
+            List<Node> ds = BFSFillNull(root);
+            Node[] ndry = ds.ToArray<Node>();
+            Node[] toPrint = null;
 
+            for (int i = 0; i < ndry.Length; i++)
+            {
+                toPrint = new Node[ndry.Length];
+                toPrint[0] = ndry[0];
+                
+                for (int j = 1; j < ndry.Length; j++)
+                {
+                    toPrint[j] = ndry[j];
+                }
+                PrintNodes(toPrint);
+                int k = i + 1;
+                Node tmp = toPrint[k];
+                toPrint[k] = toPrint[k + 1];
+                toPrint[k + 1] = tmp;
+                PrintNodes(toPrint);
+            }
+
+            Console.WriteLine(ds.Count);
         }
 
-        public static List<Node> BFS(Node root)
+        public static void PrintNodes(Node[] nds)
+        {
+            Console.Write("{");
+            for (int i = 0; i < nds.Length; i++)
+            {
+                if (nds[i].name != "null")
+                {
+                    if (i < nds.Length - 1)
+                    {
+                        Console.Write(nds[i].value + ",");
+                    }
+                    else
+                    {
+                        Console.Write(nds[i].value);
+                    }
+                }
+            }
+            Console.Write("}" );
+            Console.Write("\n");
+        }
+
+        public static List<Node> BFSFillNull(Node root)
         {
             List<Node> nds = new List<Node>();
             Queue<Node> que = new Queue<Node>();
@@ -127,17 +168,28 @@ namespace Chapter04
                 Console.WriteLine(d.value);
                 d.visited = true;
 
-                if(d.right != null && ! d.right.marked)
+                if (!(d.right == null && d.left == null))
                 {
-                    que.Enqueue(d.right);
-                    d.right.marked = true;
-                }
+                    if (d.right != null && !d.right.marked)
+                    {
+                        que.Enqueue(d.right);
+                        d.right.marked = true;
+                    }
+                    else
+                    {
+                        que.Enqueue(new Node("null"));
+                    }
 
-                if (d.left != null && !d.left.marked)
-                {
-                    que.Enqueue(d.left);
-                    d.left.marked = true;
-                }
+                    if (d.left != null && !d.left.marked)
+                    {
+                        que.Enqueue(d.left);
+                        d.left.marked = true;
+                    }
+                    else
+                    {
+                        que.Enqueue(new Node("null"));
+                    }
+                } 
             }
             return nds;
         }
@@ -506,7 +558,7 @@ namespace Chapter04
              *        2 4        2   5
              *       1   5     1   3
              */
-            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};//, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
+            int[] src = { 1, 2, 3, 4, 5};//, 6, 7, 8, 9, 10};//, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
 
             Queue<int> idxs = FindRootsIdx(src);
 
