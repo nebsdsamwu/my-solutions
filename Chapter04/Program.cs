@@ -99,8 +99,47 @@ namespace Chapter04
             // 4.8
             Node[] nds = BuildBSTAndGetNodes();
             //InOrderTraverse(nds[0]);
-            Node cmn = FindCommon(nds[1], nds[2]);
+            //Node cmn = FindCommon(nds[1], nds[2]);
+
+            // 4.9;
+            Node root = BuildMinHeightBST_V1();
+            FindSequence(root);
             Console.ReadKey();
+        }
+
+        // 4.9
+        public static void FindSequence(Node root)
+        {
+            List<Node> ds = BFS(root);
+
+        }
+
+        public static List<Node> BFS(Node root)
+        {
+            List<Node> nds = new List<Node>();
+            Queue<Node> que = new Queue<Node>();
+            que.Enqueue(root);
+            root.marked = true;
+            while (que.Count > 0)
+            {
+                Node d = que.Dequeue();
+                nds.Add(d);
+                Console.WriteLine(d.value);
+                d.visited = true;
+
+                if(d.right != null && ! d.right.marked)
+                {
+                    que.Enqueue(d.right);
+                    d.right.marked = true;
+                }
+
+                if (d.left != null && !d.left.marked)
+                {
+                    que.Enqueue(d.left);
+                    d.left.marked = true;
+                }
+            }
+            return nds;
         }
 
         // 4.8
@@ -467,7 +506,7 @@ namespace Chapter04
              *        2 4        2   5
              *       1   5     1   3
              */
-            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
+            int[] src = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};//, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
 
             Queue<int> idxs = FindRootsIdx(src);
 
