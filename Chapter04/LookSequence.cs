@@ -11,11 +11,24 @@ namespace Chapter04
         public static void FindSequence(Node root)
         {
             List<Node> ds = BFSFillNull(root);
-            Node[] ndry = ds.ToArray<Node>();
+            Node[] ndry = new Node[ds.Count];
+            int i = 0;
+            foreach(Node d in ds)
+            {
+                if (d.name != "null")
+                {
+                    ndry[i] = d;
+                    i += 1;
+                }
+            }
+
             List<int> list = new List<int>();
             foreach(Node d in ndry)
             {
-                list.Add(d.value);
+                if (d != null)
+                {
+                    list.Add(d.value);
+                }
             }
             GetPer(list);
             Console.WriteLine();
@@ -24,7 +37,7 @@ namespace Chapter04
         public static void GetPer(List<int> inlist)
         {
             int[] list = inlist.ToArray();
-            int endIdx = list.Length - 1;
+            int endIdx = list.Length;
             GetPer(list, 0, endIdx);
         }
 
