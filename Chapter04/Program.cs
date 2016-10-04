@@ -11,6 +11,15 @@ namespace Chapter04
     {
         static void Main(string[] args)
         {
+            int x = 48;
+            x >>= 1;
+            Console.WriteLine(x);
+
+            uint y = 48;
+            y >>= 1;
+            Console.WriteLine(y);
+
+
             //TestTree();
             //TestGraph();
 
@@ -103,7 +112,7 @@ namespace Chapter04
 
             // 4.9;
             Node root = BuildMinHeightBST_V1();
-            LookSequence.FindSequence(root);
+            //LookSequence.FindSequence(root);
             Console.ReadKey();
         }
 

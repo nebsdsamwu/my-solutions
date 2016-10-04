@@ -32,6 +32,11 @@ namespace Chapter04
             }
             GetPer(list);
             Console.WriteLine();
+            foreach (int n in list)
+            {
+                Console.Write(n + " ");
+            }
+            Console.WriteLine();
         }
 
         public static void GetPer(List<int> inlist)
@@ -102,7 +107,7 @@ namespace Chapter04
             {
                 Node d = que.Dequeue();
                 nds.Add(d);
-                Console.WriteLine(d.value);
+                //Console.WriteLine(d.value);
                 d.visited = true;
 
                 if (!(d.right == null && d.left == null))
