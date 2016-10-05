@@ -47,7 +47,7 @@ namespace Chapter04
             {
                 for (int j = i + 1; j < nds.Length; j++)
                 {
-                    if (nds[j].parent != null && nds[j].parent.ValEqual(nds[i]))
+                    if (nds[i].parent != null && nds[i].parent.ValEqual(nds[j]))
                     {
                         return false;
                     }
