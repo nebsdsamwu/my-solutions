@@ -11,13 +11,13 @@ namespace Chapter04
     {
         static void Main(string[] args)
         {
-            int x = 48;
-            x >>= 1;
-            Console.WriteLine(x);
+            //int x = 48;
+            //x >>= 1;
+            //Console.WriteLine(x);
 
-            uint y = 48;
-            y >>= 1;
-            Console.WriteLine(y);
+            //uint y = 48;
+            //y >>= 1;
+            //Console.WriteLine(y);
 
 
             //TestTree();
@@ -112,7 +112,7 @@ namespace Chapter04
 
             // 4.9;
             Node root = BuildMinHeightBST_V1();
-            //LookSequence.FindSequence(root);
+            LookSequence.FindSequence(root);
             Console.ReadKey();
         }
 
@@ -121,7 +121,6 @@ namespace Chapter04
         {
             List<Node> ds = BFSFillNull(root);
             Node[] ndry = ds.ToArray<Node>();
-            Node[] toPrint = null;
 
             int tcnt = 1;
             for (int i = 1; i <= ndry.Length - 1; i++)
@@ -131,9 +130,6 @@ namespace Chapter04
 
             while (tcnt > 0)
             {
-
-
-
                 tcnt -= 1;
             }
 
@@ -146,34 +142,6 @@ namespace Chapter04
                 }
                 Console.WriteLine();
             }
-
-
-
-            //for (int i = 0; i < ndry.Length; i++)
-            //{
-            //    toPrint = new Node[ndry.Length];
-            //    toPrint[0] = ndry[0];
-
-            //    for (int j = 1; j < ndry.Length; j++)
-            //    {
-            //        toPrint[j] = ndry[j];
-            //    }
-
-            //    if (i == 0)
-            //    {
-            //        PrintNodes(toPrint);
-            //    }
-
-            //    int k = i + 1;
-            //    if (k + 1 < toPrint.Length)
-            //    {
-            //        Node tmp = toPrint[k];
-            //        toPrint[k] = toPrint[k + 1];
-            //        toPrint[k + 1] = tmp;
-            //        PrintNodes(toPrint);
-            //    }
-            //}
-
             Console.WriteLine(ds.Count);
         }
 
@@ -601,7 +569,7 @@ namespace Chapter04
              *        2 4        2   5
              *       1   5     1   3
              */
-            int[] src = { 1, 2, 3, 4};//, 5};//, 6, 7, 8, 9, 10};//, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
+            int[] src = { 1, 2, 3, 4, 5};//, 6, 7, 8, 9, 10};//, 11, 12, 13, 14, 15, 16, 17, 18, 19 };//, 20 };
 
             Queue<int> idxs = FindRootsIdx(src);
 
@@ -614,6 +582,7 @@ namespace Chapter04
                 Node nd = new Node(src[i]);
                 if (i == rootIdx)
                 {
+                    root.parent = nd;
                     nd.left = root;
                     root = nd;
                     cur = root;
@@ -624,6 +593,7 @@ namespace Chapter04
                 }
                 else
                 {
+                    nd.parent = cur;
                     cur.right = nd;
                     cur = cur.right;
                 }

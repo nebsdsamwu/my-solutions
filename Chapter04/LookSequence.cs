@@ -22,31 +22,89 @@ namespace Chapter04
                 }
             }
 
-            List<int> list = new List<int>();
-            foreach(Node d in ndry)
+            List<Node> list = new List<Node>();
+            for (int h = 1; h < ndry.Length; h++ )
             {
-                if (d != null)
+                if (ndry[h] != null)
                 {
-                    list.Add(d.value);
+                    list.Add(ndry[h]);
                 }
             }
+
             GetPer(list);
+
             Console.WriteLine();
-            foreach (int n in list)
+            foreach (Node n in list)
             {
-                Console.Write(n + " ");
+                //Console.Write(n.value + " ");
             }
             Console.WriteLine();
         }
 
-        public static void GetPer(List<int> inlist)
+        public static bool IsInOrder(Node[] nds)
         {
-            int[] list = inlist.ToArray();
+            for (int i = 0; i < nds.Length; i++)
+            {
+                Node nd = nds[i];
+                for (int j = i + 1; j < nds.Length; j++)
+                {
+                    if (nds[j].parent == nd)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public static void GetPer(List<Node> inlist)
+        {
+            Node[] list = inlist.ToArray();
             int endIdx = list.Length;
             GetPer(list, 0, endIdx);
         }
 
-        public static void GetPer(int[] list, int k, int m)
+        public static void GetPer(Node[] list, int k, int m)
+        {
+            if (k == m)
+            {
+                if (IsInOrder(list))
+                {
+                    foreach (Node n in list)
+                    {
+                        Console.Write(n.value + " ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                for (int i = k; i < m; i++)
+                {
+                    Swap(ref list[k], ref list[i]);
+                    GetPer(list, k + 1, m);
+                    Swap(ref list[k], ref list[i]);
+                }
+            }
+        }
+
+        public static void Swap(ref Node a, ref Node b)
+        {
+            if (a.ValEqual(b)) return;
+
+            Node c = a;
+            a = b;
+            b = c;
+        }
+
+        public static void GetPer_Bak(List<int> inlist)
+        {
+            int[] list = inlist.ToArray();
+            int endIdx = list.Length;
+            GetPer_Bak(list, 0, endIdx);
+        }
+
+        public static void GetPer_Bak(int[] list, int k, int m)
         {
             if (k == m)
             {
@@ -60,14 +118,14 @@ namespace Chapter04
             {
                 for (int i = k; i < m; i++)
                 {
-                    Swap(ref list[k], ref list[i]);
-                    GetPer(list, k + 1, m);
-                    Swap(ref list[k], ref list[i]);
+                    Swap_Bak(ref list[k], ref list[i]);
+                    GetPer_Bak(list, k + 1, m);
+                    Swap_Bak(ref list[k], ref list[i]);
                 }
             }
         }
 
-        public static void Swap(ref int a, ref int b)
+        public static void Swap_Bak(ref int a, ref int b)
         {
             if (a == b) return;
 
