@@ -23,7 +23,7 @@ namespace Chapter04
             }
 
             List<Node> list = new List<Node>();
-            for (int h = 1; h < ndry.Length; h++ )
+            for (int h = 0; h < ndry.Length; h++ )
             {
                 if (ndry[h] != null)
                 {
@@ -45,10 +45,9 @@ namespace Chapter04
         {
             for (int i = 0; i < nds.Length; i++)
             {
-                Node nd = nds[i];
                 for (int j = i + 1; j < nds.Length; j++)
                 {
-                    if (nds[j].parent == nd)
+                    if (nds[j].parent != null && nds[j].parent.ValEqual(nds[i]))
                     {
                         return false;
                     }
