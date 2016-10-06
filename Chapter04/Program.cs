@@ -111,9 +111,114 @@ namespace Chapter04
             //Node cmn = FindCommon(nds[1], nds[2]);
 
             // 4.9;
-            Node root = BuildMinHeightBST_V1();
-            LookSequence.FindSequence(root);
+            Node t1 = BuildMinHeightBST_V2(19);
+            Node t2 = BuildMinHeightBST_V2(4);
+            Console.WriteLine(CheckSubTree(t1, t2));
+            //Node root = BuildMinHeightBST_V1();
+            //LookSequence.FindSequence(root);
             Console.ReadKey();
+        }
+
+        // 4.10 check SubTree
+        public static bool CheckSubTree(Node t1, Node t2)
+        {
+            BFSCheck(t1, t2);
+
+            return false;
+        }
+
+        public static void BFSCheck(Node t1, Node t2)
+        {
+            bool got;
+            Queue<Node> queue = new Queue<Node>();
+            queue.Enqueue(t1);
+
+            while(queue.Count > 0)
+            {
+                Node d = queue.Dequeue();
+                Console.WriteLine(d.value);
+                d.visited = true;
+                if (d.ValEqual(t2))
+                {
+
+                }
+
+                if (d.left != null)
+                {
+                    queue.Enqueue(d.left);
+                }
+
+                if (d.right != null)
+                {
+                    queue.Enqueue(d.right);
+                }
+
+            }
+
+        }
+
+        public static Node BuildMinHeightBST_V2(int size)
+        {
+            /*       
+             *                   16
+             *                  /  \
+             *                 11  17
+             *                /  \   \
+                             7   12   18
+                           /  \    \    \
+                          4    8    13   19
+                         /  \   \    \    \
+                        2    5   9    14   20 
+                      /  \    \   \    \    \
+                     1    3    6   10   15  [21]
+             * 
+             * 
+             *            4
+             *          2   5
+             *        1  3  6 7
+             *        
+             *         3           4
+             *        2 4        2   5
+             *       1   5     1   3
+             */
+            int[] src0 = { 1, 2, 3, 4, 5 , 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+            if (size > src0.Length) throw new Exception("Oversized!");
+
+            int[] src = new int[size];
+
+            for (int i =0; i < size; i++)
+            {
+                src[i] = src0[i];
+            }
+
+            Queue<int> idxs = FindRootsIdx(src);
+
+            int rootIdx = idxs.Dequeue();
+            Node root = new Node(src[rootIdx]);
+            Node cur = null;
+            rootIdx = idxs.Dequeue();
+            for (int i = 1; i < src.Length; i++)
+            {
+                Node nd = new Node(src[i]);
+                if (i == rootIdx)
+                {
+                    root.parent = nd;
+                    nd.left = root;
+                    root = nd;
+                    cur = root;
+                    if (idxs.Count > 0)
+                    {
+                        rootIdx = idxs.Dequeue();
+                    }
+                }
+                else
+                {
+                    nd.parent = cur;
+                    cur.right = nd;
+                    cur = cur.right;
+                }
+            }
+            return root;
         }
 
         // 4.9

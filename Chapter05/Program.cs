@@ -10,14 +10,32 @@ namespace Chapter05
     {
         static void Main(string[] args)
         {
+            string n = "10000000000";
+            string m = "10011";
+            Insert(n, m);
+
+            Console.ReadLine();
+        }
+
+        public static void Insert(string n, string m)
+        {
+            int i = 2;
+            int j = 6;
+            int bn = Convert.ToInt32(n, 2);
+            int bm = Convert.ToInt32(m, 2);
+            bm <<= i;
+            int r = bn | bm;
+            Console.WriteLine(Convert.ToString(r, 2));
+        }
+
+        public static void TestBitOpt()
+        {
             Console.WriteLine(GetBit(13, 2));
             Console.WriteLine(SetBit(13, 1));
             Console.WriteLine(ClearBit(13, 2));
             Console.WriteLine(ClearBitFromI(13, 2));
             Console.WriteLine(ClearBitToI(13, 2));
             Console.WriteLine(UpdateBit(13, 1, true));
-
-            Console.ReadLine();
         }
 
         public static bool GetBit(int num, int i)
