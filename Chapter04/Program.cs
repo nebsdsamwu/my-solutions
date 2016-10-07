@@ -112,49 +112,161 @@ namespace Chapter04
 
             // 4.9;
             Node t1 = BuildMinHeightBST_V2(19);
-            Node t2 = BuildMinHeightBST_V2(4);
-            Console.WriteLine(CheckSubTree(t1, t2));
+            Node t2 = BuildMinHeightBST_V2(6);
+            //Node t2 = BuildMinHeightBST_V3(5);
+            //Console.WriteLine(CheckSubTree(t1, t2));
             //Node root = BuildMinHeightBST_V1();
             //LookSequence.FindSequence(root);
             Console.ReadKey();
         }
 
         // 4.10 check SubTree
-        public static bool CheckSubTree(Node t1, Node t2)
+
+
+
+        #region Wrong!!!
+        //public static bool CheckSubTree(Node t1, Node t2)
+        //{
+        //    bool found = false;
+        //    List<Node> listSub = new List<Node>();
+        //    Queue<Node> queue = new Queue<Node>();
+        //    queue.Enqueue(t1);
+        //    t1.marked = true;
+
+        //    while (queue.Count > 0)
+        //    {
+        //        Node d = queue.Dequeue();
+        //        Console.WriteLine(d.value);
+        //        d.visited = true;
+
+        //        if (d.ValEqual(t2))
+        //        {
+        //            found = true;
+        //        }
+
+        //        if (found)
+        //        {
+        //            listSub.Add(d);
+        //        }
+
+        //        if (d.left != null && ! d.left.marked)
+        //        {
+        //            queue.Enqueue(d.left);
+        //            d.left.marked = true;
+        //        }
+
+        //        if (d.right != null && !d.right.marked)
+        //        {
+        //            queue.Enqueue(d.right);
+        //            d.right.marked = true;
+        //        }
+        //    }
+
+        //    if (!found) return false;
+
+        //    foreach(Node nd in listSub)
+        //    {
+        //        nd.marked = false;
+        //        nd.visited = false;
+        //    }
+
+        //    Queue<Node> que2 = new Queue<Node>();
+        //    que2.Enqueue(t2);
+        //    t2.marked = true;
+
+        //    while(que2.Count > 0)
+        //    {
+        //        Node d2 = que2.Dequeue();
+        //        Console.WriteLine(d2.value);
+        //        d2.visited = true;
+
+        //        Node d1 = listSub.First();
+        //        listSub.Remove(d1);
+
+        //        if (! d1.ValEqual(d2))
+        //        {
+        //            return false;
+        //        }
+
+        //        if (d2.left != null && !d2.left.marked)
+        //        {
+        //            que2.Enqueue(d2.left);
+        //            d2.left.marked = true;
+        //        }
+
+        //        if (d2.right != null && !d2.right.marked)
+        //        {
+        //            que2.Enqueue(d2.right);
+        //            d2.right.marked = true;
+        //        }
+
+        //    }
+        //    return true;
+        //}
+        #endregion
+
+        public static Node BuildMinHeightBST_V3(int size)
         {
-            BFSCheck(t1, t2);
+            /*       
+             *                   16
+             *                  /  \
+             *                 11  17
+             *                /  \   \
+                             7   12   18
+                           /  \    \    \
+                          4    8    13   19
+                         /  \   \    \    \
+                        2    5   9    14   20 
+                      /  \    \   \    \    \
+                     1    3    6   10   15  [21]
+             * 
+             * 
+             *            4
+             *          2   5
+             *        1  3  6 7
+             *        
+             *         3           4
+             *        2 4        2   5
+             *       1   5     1   3
+             */
+            int[] src0 = { 1, 2, 4, 5, 7, 8, 9, 10};//, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+            if (size > src0.Length) throw new Exception("Oversized!");
 
-            return false;
-        }
+            int[] src = new int[size];
 
-        public static void BFSCheck(Node t1, Node t2)
-        {
-            bool got;
-            Queue<Node> queue = new Queue<Node>();
-            queue.Enqueue(t1);
-
-            while(queue.Count > 0)
+            for (int i = 0; i < size; i++)
             {
-                Node d = queue.Dequeue();
-                Console.WriteLine(d.value);
-                d.visited = true;
-                if (d.ValEqual(t2))
-                {
-
-                }
-
-                if (d.left != null)
-                {
-                    queue.Enqueue(d.left);
-                }
-
-                if (d.right != null)
-                {
-                    queue.Enqueue(d.right);
-                }
-
+                src[i] = src0[i];
             }
 
+            Queue<int> idxs = FindRootsIdx(src);
+
+            int rootIdx = idxs.Dequeue();
+            Node root = new Node(src[rootIdx]);
+            Node cur = null;
+            rootIdx = idxs.Dequeue();
+            for (int i = 1; i < src.Length; i++)
+            {
+                Node nd = new Node(src[i]);
+                if (i == rootIdx)
+                {
+                    root.parent = nd;
+                    nd.left = root;
+                    root = nd;
+                    cur = root;
+                    if (idxs.Count > 0)
+                    {
+                        rootIdx = idxs.Dequeue();
+                    }
+                }
+                else
+                {
+                    nd.parent = cur;
+                    cur.right = nd;
+                    cur = cur.right;
+                }
+            }
+            return root;
         }
 
         public static Node BuildMinHeightBST_V2(int size)
