@@ -17,6 +17,13 @@ namespace Chapter05
             Console.ReadLine();
         }
 
+        // 5.2
+        public static void BinToString(double r)
+        {
+
+        }
+
+        // 5.1
         public static void Insert(string n, string m)
         {
             int i = 2;
