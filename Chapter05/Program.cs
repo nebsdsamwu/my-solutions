@@ -10,17 +10,44 @@ namespace Chapter05
     {
         static void Main(string[] args)
         {
-            string n = "10000000000";
-            string m = "10011";
-            Insert(n, m);
+            // 5.1
+            //string n = "10000000000";
+            //string m = "10011";
+            //Insert(n, m);
 
+            // 5.2
+            BinToString(0.75);
             Console.ReadLine();
         }
 
         // 5.2
         public static void BinToString(double r)
         {
+            //0.75 = 0.5 + 0.25
+            Console.WriteLine(r);
 
+            List<int> bits = new List<int>();
+            int level = 1;
+            double factor = Math.Pow(0.5, level);
+            while (r > 0)
+            {
+                r = r - factor;
+                bits.Add(1);
+                Console.WriteLine(r);
+
+                if (r == 0)
+                {
+                    break;
+                }
+
+                if (r < 0)
+                {
+                    r = r + factor;
+                    level += 1;
+                    factor = Math.Pow(factor, level);
+                }
+            }
+            Console.WriteLine(r);
         }
 
         // 5.1
