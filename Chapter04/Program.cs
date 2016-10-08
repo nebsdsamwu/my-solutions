@@ -112,7 +112,8 @@ namespace Chapter04
 
             // 4.9;
             Node t1 = BuildMinHeightBST_V2(19);
-            Node t2 = BuildMinHeightBST_V2(6);
+            Node t2 = BuildMinHeightBST_V3(6);
+            CheckSubTree(t1, t2);
             //Node t2 = BuildMinHeightBST_V3(5);
             //Console.WriteLine(CheckSubTree(t1, t2));
             //Node root = BuildMinHeightBST_V1();
@@ -121,8 +122,40 @@ namespace Chapter04
         }
 
         // 4.10 check SubTree
+        public static bool CheckSubTree(Node t1, Node t2)
+        {
+            List<string> list1 = new List<string>();
+            List<string> list2 = new List<string>();
 
+            GetPreOrder(t1, list1); 
+            GetPreOrder(t2, list2);
 
+            string s1 = "", s2 = ""; 
+            foreach (string s in list1)
+            {
+                s1 += s;
+            }
+
+            foreach (string s in list2)
+            {
+                s2 += s;
+            }
+
+            bool result = s1.IndexOf(s2) != -1;
+            return result;
+        }
+
+        public static void GetPreOrder(Node nd, List<string> nds)
+        {
+            if (nd == null)
+            {
+                nds.Add("x");
+                return;
+            }
+            nds.Add(nd.value.ToString());
+            GetPreOrder(nd.left, nds);
+            GetPreOrder(nd.right, nds);
+        }
 
         #region Wrong!!!
         //public static bool CheckSubTree(Node t1, Node t2)
