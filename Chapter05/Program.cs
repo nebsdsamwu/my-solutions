@@ -16,7 +16,7 @@ namespace Chapter05
             //Insert(n, m);
 
             // 5.2
-            BinToString(0.75);
+            BinToString(0.72);
             Console.ReadLine();
         }
 
@@ -24,30 +24,31 @@ namespace Chapter05
         public static void BinToString(double r)
         {
             //0.75 = 0.5 + 0.25
-            Console.WriteLine(r);
 
-            List<int> bits = new List<int>();
-            int level = 1;
-            double factor = Math.Pow(0.5, level);
-            while (r > 0)
+            int cnt = 0;
+            List<string> bits = new List<string>();
+            while (r > 0 && cnt <= 32)
             {
-                r = r - factor;
-                bits.Add(1);
-                Console.WriteLine(r);
-
-                if (r == 0)
+                r = r * 2;
+                string bit = r - 1 >= 0 ? "1" : "0";
+                bits.Add(bit);
+                if (r > 1)
                 {
-                    break;
+                    r -= 1;
                 }
-
-                if (r < 0)
+                cnt += 1; 
+            }
+            if (bits.Count > 32)
+            {
+                Console.WriteLine("ERROR");
+            }
+            else
+            {
+                foreach (string s in bits)
                 {
-                    r = r + factor;
-                    level += 1;
-                    factor = Math.Pow(factor, level);
+                    Console.Write(s);
                 }
             }
-            Console.WriteLine(r);
         }
 
         // 5.1
