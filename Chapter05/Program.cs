@@ -16,10 +16,74 @@ namespace Chapter05
             //Insert(n, m);
 
             // 5.2
-            BinToString(0.72);
+            //BinToString(0.72);
+            FlipToWin(1775); // 11011101111
             Console.ReadLine();
         }
 
+        // 5.3 
+        /*  
+         *   flipped
+         * <
+         *   not flipped
+         *  
+         *   0 0
+         *   0 1
+         *   1 1
+         *   1 0
+         * 
+         */ 
+        public static int FlipToWin(int n)
+        {
+            string bits = Convert.ToString(n, 2);
+            Console.WriteLine(bits);
+            char[] bry = bits.ToCharArray();
+            int curLen = 0;
+            int maxLen = 0;
+            bool flipped = false;
+
+            for (int i = 0; i < bry.Length; i++)
+            {
+                if (bry[i] == '1')  // 111..
+                {
+                    curLen += 1;
+
+                    //if (bry[i + 1] == '0')
+                    //{
+
+                    //}
+                }
+                else if (bry[i] == '0')  // 1110...
+                {
+                    if (bry[i + 1] == '0' && !flipped)  // 11100...
+                    {
+                        int cur1 = curLen + 1;
+                        if (cur1 > maxLen)
+                        {
+                            maxLen = cur1;
+                            flipped = true;
+                        }
+                        curLen = 0;
+                    }
+                    else if (!flipped)
+                    {
+                        curLen += 1;
+                        flipped = true;
+                    }
+                }
+            }
+
+
+            return maxLen;
+        }
+
+        public static int[][] Record(string bits)
+        {
+            int [][] rec = new int [bits.Length][];
+
+            return rec;
+        }
+ 
         // 5.2
         public static void BinToString(double r)
         {
