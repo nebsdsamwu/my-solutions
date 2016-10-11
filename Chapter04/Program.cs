@@ -121,6 +121,14 @@ namespace Chapter04
             Console.ReadKey();
         }
 
+        // 4.11 Build Binary Tree
+        static Node BuilBinaryTree(int[] vals)
+        {
+            Node root = null;
+
+            return root;
+        }
+
         // 4.10 check SubTree
         public static bool CheckSubTree(Node t1, Node t2)
         {
