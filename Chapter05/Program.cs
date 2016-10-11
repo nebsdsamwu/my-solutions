@@ -23,64 +23,77 @@ namespace Chapter05
 
         // 5.3 
         /*  
-         *   flipped
-         * <
-         *   not flipped
-         *  
-         *   0 0
-         *   0 1
-         *   1 1
-         *   1 0
-         * 
-         */ 
+         * 11011101111
+         * [1,2]  [0,1]  [1,3]  [0,1]  [1,4]
+         */
         public static int FlipToWin(int n)
         {
             string bits = Convert.ToString(n, 2);
-            Console.WriteLine(bits);
-            char[] bry = bits.ToCharArray();
-            int curLen = 0;
+            Tuple<char, int>[] rec = CountBits(bits).ToArray();
             int maxLen = 0;
-            bool flipped = false;
+            int curLen = 0;
 
-            for (int i = 0; i < bry.Length; i++)
+            for (int i = 0; i < rec.Length - 1; i++)
             {
-                if (bry[i] == '1')  // 111..
+                if (rec[i].Item1 == '1')
                 {
-                    curLen += 1;
-
-                    //if (bry[i + 1] == '0')
-                    //{
-
-                    //}
-                }
-                else if (bry[i] == '0')  // 1110...
-                {
-                    if (bry[i + 1] == '0' && !flipped)  // 11100...
+                    if (rec[i + 1].Item2 == 1)
                     {
-                        int cur1 = curLen + 1;
-                        if (cur1 > maxLen)
+                        curLen = rec[i].Item2 + rec[i + 2].Item2 + 1;
+                        if (curLen > maxLen)
                         {
-                            maxLen = cur1;
-                            flipped = true;
+                            maxLen = curLen;
                         }
-                        curLen = 0;
+                        i = i + 1;
                     }
-                    else if (!flipped)
+                    else if (rec[i + 1].Item2 > 1)
                     {
-                        curLen += 1;
-                        flipped = true;
+                        curLen = rec[i].Item2 + 1;
+                        if (curLen > maxLen)
+                        {
+                            maxLen = curLen;
+                        }
                     }
+                    curLen = 0;
+                }
+                else if (rec[i].Item1 == '0')
+                {
+                    Console.WriteLine("[" + i + "]");
                 }
             }
-
-
             return maxLen;
         }
 
-        public static int[][] Record(string bits)
+        // 11011101111
+        public static List<Tuple<char, int>> CountBits(string bits)
         {
-            int [][] rec = new int [bits.Length][];
-
+            List<Tuple<char, int>> rec = new List<Tuple<char, int>>();         
+            char[] bry = bits.ToCharArray();
+            int tcnt = 0;
+            int fcnt = 0;
+            for (int i = 0; i < bry.Length; i++)
+            {
+                if (bry[i] == '1')
+                {
+                    tcnt += 1;
+                    if ((i + 1 < bry.Length && bry[i + 1] == '0') || i + 1 == bry.Length)
+                    {
+                        Tuple<char, int> tp = new Tuple<char, int>('1', tcnt);
+                        rec.Add(tp);
+                        tcnt = 0;
+                    }
+                }
+                else  
+                {
+                    fcnt += 1;
+                    if ((i + 1 < bry.Length && bry[i + 1] == '1') || i + 1 == bry.Length)
+                    {
+                        Tuple<char, int> tp = new Tuple<char, int>('0', fcnt);
+                        rec.Add(tp);
+                        fcnt = 0;
+                    }
+                }
+            }
             return rec;
         }
  
