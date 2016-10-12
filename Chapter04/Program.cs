@@ -141,6 +141,13 @@ namespace Chapter04
             return root;
         }
 
+        static Node Delete(Node root, Node nd)
+        {
+            Node d = null;
+
+            return d;
+        }
+
         static Node Find(Node root, Node nd)
         {
             if (root == null) return null;
