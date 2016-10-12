@@ -122,7 +122,9 @@ namespace Chapter04
 
             // 4.11
             int[] vals = {8,9,4,6,13,65,7,32,55};
-            BuildBinaryTree(vals);
+            Node root = BuildBinaryTree(vals);
+            PreOrderTraverse(root);
+            Node result = Find(root, new Node(32));
             Console.ReadKey();
         }
 
@@ -130,8 +132,52 @@ namespace Chapter04
         static Node BuildBinaryTree(int[] vals)
         {
             Node root = null;
+            for (int i = 0; i < vals.Length; i++)
+            {
+                Node nd = new Node(vals[i]);
+                root = InsertNode(root, nd);
+            }
 
+            return root;
+        }
 
+        static Node Find(Node root, Node nd)
+        {
+            if (root == null) return null;
+
+            root.visited = true;
+            Console.WriteLine("checked:" + root.value);
+
+            if (root.ValEqual(nd))
+            {
+                return root;
+            }
+            
+            Node r = Find(root.left, nd);
+            if (r == null)
+            {
+                r = Find(root.right, nd);
+            }
+            return r;
+        }
+
+        static Node InsertNode(Node root, Node nd)
+        {
+            if (root == null)
+            {
+                root = nd;
+                return root;
+            }
+
+            int dir = new Random().Next(0, 2);
+            if (dir == 0)
+            {
+                root.left = InsertNode(root.left, nd);
+            }
+            else
+            {
+                root.right = InsertNode(root.right, nd);
+            }
             return root;
         }
 
