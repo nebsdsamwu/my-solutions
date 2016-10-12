@@ -124,7 +124,12 @@ namespace Chapter04
             int[] vals = {8,9,4,6,13,65,7,32,55};
             Node root = BuildBinaryTree(vals);
             PreOrderTraverse(root);
-            Node result = Find(root, new Node(32));
+            Console.WriteLine();
+            Delete(root, new Node(7));
+            PreOrderTraverse(root);
+
+            // 4.11 - 2
+            //Node result = Find(root, new Node(32));
             Console.ReadKey();
         }
 
@@ -141,19 +146,97 @@ namespace Chapter04
             return root;
         }
 
-        static Node Delete(Node root, Node nd)
+        static bool Delete(Node root, Node nd)
         {
-            Node d = null;
+            if (root == null) return false;
 
-            return d;
+            root.visited = true;
+            Console.WriteLine("checked:" + root.value);
+
+            if (root.ValEqual(nd))
+            {
+                if (root.parent == null)
+                {
+                    // if( )
+
+                }
+                else if (root.left != null && root.right != null)
+                {
+                    if (new Random().Next(0, 2) == 0)
+                    {
+                        if (root.parent.left.ValEqual(root))
+                        {
+                            root.parent.left = root.left;
+                        }
+                        else
+                        {
+                            root.parent.right = root.left;
+                        }
+                        root.left.parent = root.parent;
+                    }
+                    else
+                    {
+                        if (root.parent.left.ValEqual(root))
+                        {
+                            root.parent.left = root.right;
+                        }
+                        else
+                        {
+                            root.parent.right = root.right;
+                        }
+                        root.right.parent = root.parent;
+                    }
+                }
+                else if (root.left != null && root.right == null)
+                {
+                    if (root.parent.left != null && root.parent.left.ValEqual(root))
+                    {
+                        root.parent.left = root.left;
+                    }
+                    else
+                    {
+                        root.parent.right = root.left;
+                    }
+                    root.left.parent = root.parent;
+                }
+                else if (root.left == null && root.right != null)
+                {
+                    if (root.parent.left != null && root.parent.left.ValEqual(root))
+                    {
+                        root.parent.left = root.right;
+                    }
+                    else
+                    {
+                        root.parent.right = root.right;
+                    }
+                    root.right.parent = root.parent;
+                }
+                return true;
+            }
+            else
+            {
+                if (root.left != null)
+                {
+                    if (Delete(root.left, nd))
+                    {
+                        return true;
+                    }
+                }
+
+                if (root.right != null)
+                {
+                    if (Delete(root.right, nd))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
         static Node Find(Node root, Node nd)
         {
             if (root == null) return null;
-
-            root.visited = true;
-            Console.WriteLine("checked:" + root.value);
 
             if (root.ValEqual(nd))
             {
