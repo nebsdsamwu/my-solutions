@@ -110,21 +110,27 @@ namespace Chapter04
             //InOrderTraverse(nds[0]);
             //Node cmn = FindCommon(nds[1], nds[2]);
 
-            // 4.9;
-            Node t1 = BuildMinHeightBST_V2(19);
-            Node t2 = BuildMinHeightBST_V3(6);
-            CheckSubTree(t1, t2);
+            // 4.9, 4.10;
+            //Node t1 = BuildMinHeightBST_V2(19);
+            //Node t2 = BuildMinHeightBST_V3(6);
+            //CheckSubTree(t1, t2);
             //Node t2 = BuildMinHeightBST_V3(5);
             //Console.WriteLine(CheckSubTree(t1, t2));
             //Node root = BuildMinHeightBST_V1();
             //LookSequence.FindSequence(root);
+
+
+            // 4.11
+            int[] vals = {8,9,4,6,13,65,7,32,55};
+            BuildBinaryTree(vals);
             Console.ReadKey();
         }
 
         // 4.11 Build Binary Tree
-        static Node BuilBinaryTree(int[] vals)
+        static Node BuildBinaryTree(int[] vals)
         {
             Node root = null;
+
 
             return root;
         }
