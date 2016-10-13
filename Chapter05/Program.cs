@@ -19,7 +19,8 @@ namespace Chapter05
             //BinToString(0.72);
             //FlipToWin(1775); // 11011101111
             //5.3
-            FindMin(1775); // 11011101111
+            // FindMin(1775); // 11011101111
+            FindMax(1775); // 11011101111
             Console.ReadLine();
         }
 
