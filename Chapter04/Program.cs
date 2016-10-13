@@ -195,16 +195,22 @@ namespace Chapter04
                         term = FindTerminal(root.left);
                         if (term.left != null)
                         {
-                            term.left = root.right; 
-                            root.right.parent = term.left;
+                            if (root.right != null)
+                            {
+                                term.left = root.right;
+                                root.right.parent = term.left;
+                            }
                         }
                         else
                         {
-                            term.right = root.right;
-                            root.right.parent = term.right;
+                            if (root.right != null)
+                            {
+                                term.right = root.right;
+                                root.right.parent = term.right;
+                            }
                         }
                     }
-                    else
+                    else if (root.left != null)
                     {
                         term = FindTerminal(root.right);
                         if (term.left != null)
@@ -212,7 +218,7 @@ namespace Chapter04
                             term.left = root.left; 
                             root.left.parent = term.left;
                         }
-                        else
+                        else 
                         {
                             term.right = root.left;
                             root.left.parent = term.right;
@@ -283,12 +289,12 @@ namespace Chapter04
             {
                 if (root.left != null)
                 {
-                    return Delete(root.left, nd);
+                    root = Delete(root.left, nd);
                 }
 
                 if (root.right != null)
                 {
-                    return Delete(root.right, nd);
+                    root = Delete(root.right, nd);
                 }
             }
             return root;
