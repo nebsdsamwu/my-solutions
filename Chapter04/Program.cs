@@ -146,9 +146,9 @@ namespace Chapter04
             return root;
         }
 
-        static bool Delete(Node root, Node nd)
+        static Node Delete(Node root, Node nd)
         {
-            if (root == null) return false;
+            if (root == null) throw new Exception("Tree empty.");
 
             root.visited = true;
             Console.WriteLine("checked:" + root.value);
@@ -157,8 +157,71 @@ namespace Chapter04
             {
                 if (root.parent == null)
                 {
-                    // if( )
-
+                    Node term = null; 
+                    if (root.left != null && root.right != null)
+                    {
+                        
+                        if (new Random().Next(0, 2) == 0)
+                        {
+                            term = FindTerminal(root.left);
+                            if (term.left != null)
+                            {
+                                term.left = root.right; 
+                                root.right.parent = term.left;
+                            }
+                            else
+                            {
+                                term.right = root.right;
+                                root.right.parent = term.right;
+                            }
+                        }
+                        else 
+                        {
+                            term = FindTerminal(root.right);
+                            if (term.left != null)
+                            {
+                                term.left = root.left; 
+                                root.left.parent = term.left;
+                            }
+                            else
+                            {
+                                term.right = root.left;
+                                root.left.parent = term.right;
+                            }
+                        }
+                    }
+                    else if (root.left != null)
+                    {
+                        term = FindTerminal(root.left);
+                        if (term.left != null)
+                        {
+                            term.left = root.right; 
+                            root.right.parent = term.left;
+                        }
+                        else
+                        {
+                            term.right = root.right;
+                            root.right.parent = term.right;
+                        }
+                    }
+                    else
+                    {
+                        term = FindTerminal(root.right);
+                        if (term.left != null)
+                        {
+                            term.left = root.left; 
+                            root.left.parent = term.left;
+                        }
+                        else
+                        {
+                            term.right = root.left;
+                            root.left.parent = term.right;
+                        }
+                    }
+                }
+                else if (root.left == null && root.right == null)
+                {
+                    return root.parent;
                 }
                 else if (root.left != null && root.right != null)
                 {
@@ -173,6 +236,7 @@ namespace Chapter04
                             root.parent.right = root.left;
                         }
                         root.left.parent = root.parent;
+                        return root.left;
                     }
                     else
                     {
@@ -185,6 +249,7 @@ namespace Chapter04
                             root.parent.right = root.right;
                         }
                         root.right.parent = root.parent;
+                        return root.right;
                     }
                 }
                 else if (root.left != null && root.right == null)
@@ -198,6 +263,7 @@ namespace Chapter04
                         root.parent.right = root.left;
                     }
                     root.left.parent = root.parent;
+                    return root.left;
                 }
                 else if (root.left == null && root.right != null)
                 {
@@ -210,27 +276,49 @@ namespace Chapter04
                         root.parent.right = root.right;
                     }
                     root.right.parent = root.parent;
+                    return root.right;
                 }
-                return true;
             }
             else
             {
                 if (root.left != null)
                 {
-                    if (Delete(root.left, nd))
-                    {
-                        return true;
-                    }
+                    return Delete(root.left, nd);
                 }
 
                 if (root.right != null)
                 {
-                    if (Delete(root.right, nd))
-                    {
-                        return true;
-                    }
+                    return Delete(root.right, nd);
                 }
-                return false;
+            }
+            return root;
+        }
+
+        static Node FindTerminal(Node root)
+        {
+            if (root.left == null || root.right == null)
+            {
+                return root;
+            }
+
+            if (root.left != null && root.right != null)
+            {
+                if (new Random().Next(0, 2) == 0 )
+                {
+                    return FindTerminal(root.left); 
+                }
+                else 
+                {
+                    return FindTerminal(root.right); 
+                }
+            }
+            else if (root.left != null)
+            {
+                return FindTerminal(root.left); 
+            }
+            else
+            {
+                return FindTerminal(root.right); 
             }
         }
 
