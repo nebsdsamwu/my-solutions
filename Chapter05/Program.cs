@@ -24,51 +24,14 @@ namespace Chapter05
             Console.ReadLine();
         }
 
-        // 5.4
+        // 5.4  -- HARD- Study
         static void FindMin(int n)
         {
-            string bits = Convert.ToString(n, 2);
-            char[] bs = bits.ToCharArray();
-            int ones = 0;
-
-            foreach(char ch in bs)
-            {
-                if (ch == '1')
-                {
-                    ones += 1;
-                }
-            }
-            Console.WriteLine(ones);
-
-            string min = "";
-            for(int i = 0; i < ones; i++)
-            {
-                min += "1";
-            }
-            Console.WriteLine(Convert.ToInt32(min, 2));
         }
 
         static void FindMax(int n)
         {
-            string bits = Convert.ToString(n, 2);
-            char[] bs = bits.ToCharArray();
-            int ones = 0;
 
-            foreach (char ch in bs)
-            {
-                if (ch == '1')
-                {
-                    ones += 1;
-                }
-            }
-            Console.WriteLine(ones);
-
-            string min = "";
-            for (int i = 0; i < ones; i++)
-            {
-                min += "1";
-            }
-            Console.WriteLine(Convert.ToInt32(min, 2));
         }
 
         // 5.3 
