@@ -20,8 +20,28 @@ namespace Chapter05
             //FlipToWin(1775); // 11011101111
             //5.3
             // FindMin(1775); // 11011101111
-            FindMax(1775); // 11011101111
-            Console.ReadLine();
+            //FindMax(1775); // 11011101111
+
+            // 5.4
+            Conversion(29, 15);
+
+            Console.ReadLine();   
+        }
+
+        // 5.5
+        static void Conversion(int a, int b)
+        {
+            // 11101, 1111
+            Console.WriteLine(Convert.ToString(a, 2));
+            Console.WriteLine(Convert.ToString(b, 2));
+            int c = a ^ b;
+            Console.WriteLine(Convert.ToString(c, 2));
+            int cnt = 0;
+            for (int d = a ^ b; d != 0; d = d & (d-1))
+            {
+                cnt += 1;
+            }
+            Console.WriteLine(cnt);
         }
 
         // 5.4  -- HARD- Study
