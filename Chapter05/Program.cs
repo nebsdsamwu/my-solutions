@@ -23,12 +23,38 @@ namespace Chapter05
             //FindMax(1775); // 11011101111
 
             // 5.4
-            Conversion(29, 15);
+            //Conversion(1775, 29);
+
+            // 5.5
+            Swap("10101010");
+
 
             Console.ReadLine();   
         }
 
         // 5.5
+        static void Swap(string s)
+        {
+            int input = Convert.ToInt32(s, 2);
+            Console.WriteLine(input);
+            string mask = "10101010";
+                       // "10101010"
+                       //  010101010
+            int a = Convert.ToInt32(mask, 2);
+            a = a & input;
+            Console.WriteLine(a);
+            Console.WriteLine(Convert.ToString(a,2));
+            //"01010101"
+            //"10101010"
+            //"00000000"
+
+            //"01010101"
+            // 00000000
+            // 01010101
+
+        }
+
+        // 5.4
         static void Conversion(int a, int b)
         {
             // 11101, 1111
