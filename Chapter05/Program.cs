@@ -19,14 +19,14 @@ namespace Chapter05
             //BinToString(0.72);
             //FlipToWin(1775); // 11011101111
             //5.3
-            // FindMin(1775); // 11011101111
+            FindNext("11011001111100"); // 13948
             //FindMax(1775); // 11011101111
 
             // 5.4
             //Conversion(1775, 29);
 
             // 5.5
-            Swap("10101010");
+            // Swap("10101010");
 
 
             Console.ReadLine();   
@@ -71,11 +71,48 @@ namespace Chapter05
         }
 
         // 5.4  -- HARD- Study
-        static void FindMin(int n)
+        static void FindNext(string bits)
         {
-        }
+            //bits = "11011001111001";
 
-        static void FindMax(int n)
+            Console.WriteLine(Convert.ToInt32(bits, 2));
+            // 11011001111100
+            int n = Convert.ToInt32(bits, 2);
+            Console.WriteLine(Convert.ToString(n, 2));
+            int c = n;
+            int c0 = 0;
+            int c1 = 0;
+
+            // 110110011111100  c
+            // 000000000000001  1
+            while ((c & 1) == 0 && (c != 0))
+            {
+                c0 += 1;
+                c >>= 1;
+            }
+
+            while ((c & 1) == 1)
+            {
+                c1 += 1;
+                c >>= 1;
+            }
+            //Console.WriteLine(c0);
+            //Console.WriteLine(c1);
+
+            if (c0 + c1 == 31 || c0 + c1 == 0) 
+                throw new Exception("No bigger number exists");
+
+            int p = c0 + c1;
+
+            n |= (1 << p);
+            Console.WriteLine(Convert.ToString(n, 2));
+            n &= ~((1 << p) - 1);
+            Console.WriteLine(Convert.ToString(n, 2));
+            n |= (1 << (c1 - 1)) - 1;
+            Console.WriteLine(Convert.ToString(n, 2));
+        }
+        
+        static void FindPrev(int n)
         {
 
         }
