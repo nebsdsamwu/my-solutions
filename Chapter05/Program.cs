@@ -104,11 +104,11 @@ namespace Chapter05
 
             int p = c0 + c1;
 
-            n |= (1 << p);
+            n |= (1 << p); // flip [p]
             Console.WriteLine(Convert.ToString(n, 2));
-            n &= ~((1 << p) - 1);
+            n &= ~((1 << p) - 1); // empty all tailing bits.
             Console.WriteLine(Convert.ToString(n, 2));
-            n |= (1 << (c1 - 1)) - 1;
+            n |= (1 << (c1 - 1)) - 1; // add c1-1 ones to most right.
             Console.WriteLine(Convert.ToString(n, 2));
         }
         
