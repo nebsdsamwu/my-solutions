@@ -36,6 +36,54 @@ namespace Chapter01
                 Console.ReadKey();
         }
 
+        // Ranson
+        static bool CheckNote(string[] source, string[] notes)
+        {
+            Dictionary<string, int> pool = new Dictionary<string, int>();
+            foreach (string s in source)
+            {
+                int cnt = -1;
+                if (pool.TryGetValue(s, out cnt))
+                {
+                    cnt += 1;
+                    pool[s] = cnt;
+                }
+                else
+                {
+                    pool.Add(s, 1);
+                }
+            }
+
+            foreach (var kvp in pool)
+            {
+                //Console.WriteLine(kvp.Key +":"+kvp.Value);
+            }
+
+            foreach (string s in notes)
+            {
+                int cnt = -1;
+                if (pool.TryGetValue(s, out cnt))
+                {
+                    cnt -= 1;
+                    if (cnt > 0)
+                    {
+                        pool[s] = cnt;
+                    }
+                    else
+                    {
+                        pool.Remove(s);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No");
+                    return false; ;
+                }
+            }
+            Console.WriteLine("Yes");
+            return true;
+        }
+
         // 1.7.1 - test
         static void Rotate9Dots()
         {
