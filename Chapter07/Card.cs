@@ -36,11 +36,11 @@ namespace Chapter07
         public void MarkAvailable() { available = true; }
     }
 
-    public enum Suit
+    public class Suit
     {
-        Club = 0,
-        Diamond = 1,
-        Heart = 2,
-        Spade = 3
+        public int Club { get { return 0; } }
+        public int Diamond { get { return 1; } }
+        public int Heart { get { return 2; } }
+        public int Spade { get { return 3; } }
     }
 }

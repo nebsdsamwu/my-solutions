@@ -23,5 +23,12 @@ namespace Chapter07
             set { dealtIndex = value; }
         }
 
+        public void Shuffle()
+        {
+
+        }
+
+        // public T[] DealHand
+        // public T DealCard
     }
 }
