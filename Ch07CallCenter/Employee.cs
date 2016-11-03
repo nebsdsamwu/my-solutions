@@ -38,7 +38,7 @@ namespace Ch07CallCenter
         }
     }
 
-    protected enum Position
+    public enum Position
     {
         Respodent = 0,
         Manager = 1,
