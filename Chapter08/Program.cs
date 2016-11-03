@@ -10,11 +10,50 @@ namespace Chapter08
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(FibonacciBU(10));
+            // 8.0
+            //Console.WriteLine(FibonacciBU(10));
 
+            // 9.1
+            Console.WriteLine(CountStep(30));
             Console.ReadLine();
         }
 
+        // 8.1
+        static int CountStep(int n)
+        {
+            int[] memo = new int[n + 1];
+            for (int i = 0; i < memo.Length; i++)
+            {
+                memo[i] = -1;
+            }
+            return CountStep(n, memo);
+        }
+
+        static int CountStep(int n, int[] memo)
+        {
+            if (n < 0) return 0;
+            else if (n == 0) return 1;
+            else if (memo[n] > -1) return memo[n];
+            else
+            {
+                memo[n] = CountStep(n - 1, memo) + CountStep(n - 2, memo) + CountStep(n - 3, memo);
+                return memo[n];
+            }
+        }
+
+        // 8.1
+        static int CountStep0(int n)
+        {
+            if (n < 0) return 0;
+            else if (n == 0) return 1;
+            else
+            {
+                return CountStep(n - 1) + CountStep(n - 2) + CountStep(n - 3);
+            }
+        }
+
+
+        // 8.0
         static int FibonacciBU(int n)
         {
             if (n == 0) return 0;
