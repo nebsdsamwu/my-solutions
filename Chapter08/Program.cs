@@ -13,9 +13,27 @@ namespace Chapter08
             // 8.0
             //Console.WriteLine(FibonacciBU(10));
 
-            // 9.1
-            Console.WriteLine(CountStep(30));
+            // 8.1
+            //Console.WriteLine(CountStep(25));
+
+            // 8.2
+            RobotWalk(5, 3);
             Console.ReadLine();
+        }
+
+        // 8.2
+        static void RobotWalk(int r, int c)
+        {
+            int i = 0;
+            while (r >= 0 || i <= c)
+            {
+                Console.WriteLine(r + " : " + i);
+                if (r > 0) r -= 1;
+                if (i < c) i += 1;
+
+                if (r == 0 && i == c) break;
+            }
+
         }
 
         // 8.1
