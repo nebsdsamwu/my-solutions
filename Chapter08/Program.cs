@@ -17,23 +17,58 @@ namespace Chapter08
             //Console.WriteLine(CountStep(25));
 
             // 8.2
-            RobotWalk(5, 3);
+            // oooxox
+            // oxooxo  
+            // ooooox
+            // oxxxoo
+            // oooooo
+
+            bool[][] mazz = new bool[5][];
+            mazz[0] = new bool[] { true, true, true, false, true, false };
+            mazz[1] = new bool[] { true, false, true, true, false, true };
+            mazz[2] = new bool[] { true, true, true, true, true, false };
+            mazz[3] = new bool[] { true, false, false, false, true, true };
+            mazz[4] = new bool[] { true, true, true, true, true, true }; 
+
+            List<Tuple<int, int>> path = GetPath(mazz);
+            foreach (var p in path)
+            {
+                Console.WriteLine(p.Item1 + ", " + p.Item2);
+            }
+
             Console.ReadLine();
         }
 
         // 8.2
-        static void RobotWalk(int r, int c)
+        static List<Tuple<int, int>> GetPath(bool[][] mazz)
         {
-            int i = 0;
-            while (r >= 0 || i <= c)
+            if (mazz == null || mazz.Length == 0) return null;
+            List<Tuple<int, int>> path = new List<Tuple<int, int>>();
+            if (GetPath(mazz, mazz.Length -1, mazz[0].Length - 1, path))
             {
-                Console.WriteLine(r + " : " + i);
-                if (r > 0) r -= 1;
-                if (i < c) i += 1;
+                return path;
+            }
+            return null;
+        }
 
-                if (r == 0 && i == c) break;
+        static bool GetPath(bool[][] mazz, int row, int col, List<Tuple<int, int>> path)
+        {
+            if (col < 0 || row < 0 || ! mazz[row][col])
+            {
+                return false;
             }
 
+            bool isAtOrigin = (row == 0 && col == 0);
+
+            if (isAtOrigin 
+                || GetPath(mazz, row, col - 1, path)
+                || GetPath(mazz, row -1, col, path))
+            {
+                Tuple<int, int> point = new Tuple<int, int>(row, col);
+                path.Add(point);
+                return true;
+            }
+            return false;
         }
 
         // 8.1
