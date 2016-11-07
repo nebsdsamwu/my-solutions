@@ -44,30 +44,39 @@ namespace Chapter08
         {
             if (mazz == null || mazz.Length == 0) return null;
             List<Tuple<int, int>> path = new List<Tuple<int, int>>();
-            if (GetPath(mazz, mazz.Length -1, mazz[0].Length - 1, path))
+            HashSet<Tuple<int, int>> failedPoints = new HashSet<Tuple<int, int>>();
+            if (GetPath(mazz, mazz.Length -1, mazz[0].Length - 1, path, failedPoints))
             {
                 return path;
             }
             return null;
         }
 
-        static bool GetPath(bool[][] mazz, int row, int col, List<Tuple<int, int>> path)
+        static bool GetPath(bool[][] mazz, int row, int col, List<Tuple<int, int>> path, HashSet<Tuple<int, int>> failedPoints)
         {
             if (col < 0 || row < 0 || ! mazz[row][col])
             {
                 return false;
             }
 
+            Tuple<int, int> point = new Tuple<int, int>(row, col);
+
+            if (failedPoints.Contains(point))
+            {
+                return false;
+            }
+
             bool isAtOrigin = (row == 0 && col == 0);
 
-            if (isAtOrigin 
-                || GetPath(mazz, row, col - 1, path)
-                || GetPath(mazz, row -1, col, path))
+            if (isAtOrigin
+                || GetPath(mazz, row, col - 1, path, failedPoints)
+                || GetPath(mazz, row - 1, col, path, failedPoints))
             {
-                Tuple<int, int> point = new Tuple<int, int>(row, col);
+                //Tuple<int, int> point = new Tuple<int, int>(row, col);
                 path.Add(point);
                 return true;
             }
+            failedPoints.Add(point);
             return false;
         }
 
