@@ -23,20 +23,67 @@ namespace Chapter08
             // oxxxoo
             // oooooo
 
-            bool[][] mazz = new bool[5][];
-            mazz[0] = new bool[] { true, true, true, false, true, false };
-            mazz[1] = new bool[] { true, false, true, true, false, true };
-            mazz[2] = new bool[] { true, true, true, true, true, false };
-            mazz[3] = new bool[] { true, false, false, false, true, true };
-            mazz[4] = new bool[] { true, true, true, true, true, true }; 
+            //bool[][] mazz = new bool[5][];
+            //mazz[0] = new bool[] { true, true, true, false, true, false };
+            //mazz[1] = new bool[] { true, false, true, true, false, true };
+            //mazz[2] = new bool[] { true, true, true, true, true, false };
+            //mazz[3] = new bool[] { true, false, false, false, true, true };
+            //mazz[4] = new bool[] { true, true, true, true, true, true }; 
 
-            List<Tuple<int, int>> path = GetPath(mazz);
-            foreach (var p in path)
-            {
-                Console.WriteLine(p.Item1 + ", " + p.Item2);
-            }
+            //List<Tuple<int, int>> path = GetPath(mazz);
+            //foreach (var p in path)
+            //{
+            //    Console.WriteLine(p.Item1 + ", " + p.Item2);
+            //}
+
+            // 8.3
+            int[] array = { -10, -5, -3, -2, -1, 1, 2, 3, 4, 5, 6, 11, 13, 15, 16, 20 };
+            Console.WriteLine(MagicFast(array));
 
             Console.ReadLine();
+        }
+
+        // 8.3
+        static int MagicFast(int[] array)
+        {
+            return MagicFast(array, 0, array.Length - 1);
+        }
+
+        // 8.3
+        static int MagicFast(int[] array, int start, int end)
+        {
+            if (end < start)
+            {
+                return -1;
+            }
+
+            int mid = (start + end) / 2;
+
+            if (array[mid] == mid)
+            {
+                return mid;
+            }
+            else if (array[mid] > mid)
+            {
+                return MagicFast(array, start, mid - 1);
+            }
+            else
+            {
+                return MagicFast(array, mid + 1, end);
+            }
+        }
+
+        // 8.3
+        static int MagicSlow(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++ )
+            {
+                if (array[i] == i)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         // 8.2
