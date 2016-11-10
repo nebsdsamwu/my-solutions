@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,10 +38,32 @@ namespace Chapter08
             //}
 
             // 8.3
-            int[] array = { -10, -5, -3, -2, -1, 1, 2, 3, 4, 5, 6, 11, 13, 15, 16, 20 };
-            Console.WriteLine(MagicFast(array));
+            //int[] array = { -10, -5, -3, -2, -1, 1, 2, 3, 4, 5, 6, 11, 13, 15, 16, 20 };
+            //Console.WriteLine(MagicFast(array));
+
+            // 8.4
+
 
             Console.ReadLine();
+        }
+
+        // 8.4
+        static ArrayList GetSubsets(ArrayList set, int index)
+        {
+            ArrayList allSubsets = null;
+            if (set.Count == index)
+            {
+                allSubsets = new ArrayList();
+                allSubsets.Add(new ArrayList());
+            }
+            else
+            {
+                allSubsets = GetSubsets(set, index + 1);
+                int item = set.IndexOf
+            }
+            
+
+            return allSubsets;
         }
 
         // 8.3
