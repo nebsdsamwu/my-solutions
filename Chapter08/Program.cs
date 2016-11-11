@@ -42,27 +42,52 @@ namespace Chapter08
             //Console.WriteLine(MagicFast(array));
 
             // 8.4
+            List<int> set = new List<int>();
+            set.Add(1); 
+            set.Add(2);
+            set.Add(3);
+            HashSet<List<int>> allSets = GetSubsets(set, 0);
 
+            foreach(List<int> sets in allSets)
+            {
+                foreach (int n in sets)
+                {
+                    Console.Write(n + " ");
+                }
+                Console.WriteLine();
+            }
 
             Console.ReadLine();
         }
 
         // 8.4
-        static ArrayList GetSubsets(ArrayList set, int index)
+        static HashSet<List<int>> GetSubsets(List<int> set, int index)
         {
-            ArrayList allSubsets = null;
+            HashSet<List<int>> allSubsets = null;
             if (set.Count == index)
             {
-                allSubsets = new ArrayList();
-                allSubsets.Add(new ArrayList());
+                allSubsets = new HashSet<List<int>>();
+                allSubsets.Add(new List<int>());
             }
             else
             {
                 allSubsets = GetSubsets(set, index + 1);
-                int item = set.IndexOf
-            }
-            
+                int item = set.ElementAt(index);
 
+                HashSet<List<int>> moreSubsets = new HashSet<List<int>>();
+                foreach (List<int> subset in allSubsets)
+                {
+                    List<int> newSubset = new List<int>();
+                    newSubset.AddRange(subset);
+                    newSubset.Add(item);
+                    moreSubsets.Add(newSubset);
+                }
+
+                foreach(List<int> listSet in moreSubsets)
+                {
+                    allSubsets.Add(listSet);
+                }
+            }
             return allSubsets;
         }
 
