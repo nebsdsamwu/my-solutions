@@ -10,7 +10,15 @@ namespace OtherTest
     {
         static void Main(string[] args)
         {
-            int[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            int[] a = { 1, 22, 3, 44, 5, 56, 7, 558, 9, 1033 };
+
+            //int size = 50000;
+            //int[] a = new int[size];
+            //for (int i = 0; i < size; i++)
+            //{
+            //    a[i] = i + 1;
+            //}
+
             FindMedian(a.Length, a);
 
             Console.ReadKey();
