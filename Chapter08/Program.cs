@@ -42,22 +42,65 @@ namespace Chapter08
             //Console.WriteLine(MagicFast(array));
 
             // 8.4
-            List<int> set = new List<int>();
-            set.Add(1); 
-            set.Add(2);
-            set.Add(3);
-            HashSet<List<int>> allSets = GetSubsets(set, 0);
+            //List<int> set = new List<int>();
+            //set.Add(1); 
+            //set.Add(2);
+            //set.Add(3);
+            //HashSet<List<int>> allSets = GetSubsets(set, 0);
 
-            foreach(List<int> sets in allSets)
-            {
-                foreach (int n in sets)
-                {
-                    Console.Write(n + " ");
-                }
-                Console.WriteLine();
-            }
+            //foreach(List<int> sets in allSets)
+            //{
+            //    foreach (int n in sets)
+            //    {
+            //        Console.Write(n + " ");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            Console.WriteLine(RecurMutiply(8, 10));
 
             Console.ReadLine();
+        }
+
+        // 8.5
+        static int RecurMutiply(int m, int n)
+        {
+            int bigger = m > n ? m : n;
+            int smaller = m < n ? m : n;
+            return RecurMutiplyer(bigger, smaller);
+        }
+
+        // 8.5.1
+        static int RecurMutiplyer(int s, int b)
+        {
+            if (s == 0) return 0;
+            else if (s == 1) return b;
+
+            int smaller = s / 2;
+            int halfResult = RecurMutiplyer(smaller, b);
+
+            if (s % 2 == 0)
+            {
+                return halfResult + halfResult;
+            }
+            else
+            {
+                return halfResult + halfResult + b;
+            }
+        }
+
+        static int RecurMutiply_v1(int m, int n)
+        {
+            if (n == 0) return 0;
+
+            if (n == 1)
+            {
+                return m;
+            }
+            else 
+            {
+                return m + RecurMutiply_v1(m, n - 1);
+            }
         }
 
         // 8.4
