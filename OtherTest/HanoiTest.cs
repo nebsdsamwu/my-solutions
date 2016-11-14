@@ -27,7 +27,7 @@ namespace OtherTest
                     towers[i] = new Stack<int>();
                 }
 
-                for (int i = diskCnt - 1; i >= 0; i--)
+                for (int i = diskCnt; i > 0; i--)
                 {
                     towers[0].Push(i);
                 }
@@ -37,7 +37,21 @@ namespace OtherTest
         public void Run()
         {
             Console.WriteLine(towers[0].Count);
+            Move2Disks(towers[0], towers[1], towers[2], 2);
         }
 
+        private void Move2Disks(Stack<int> fromTwr, Stack<int> buffTwr, Stack<int> toTwr, int index)
+        {
+            if (fromTwr.Count == 2)
+            {
+                int pickedDisk = fromTwr.Pop();
+                buffTwr.Push(pickedDisk);
+                pickedDisk = fromTwr.Pop();
+                toTwr.Push(pickedDisk);
+                pickedDisk = buffTwr.Pop();
+                toTwr.Push(pickedDisk);
+            }
+            else Console.WriteLine("Invalid disk quantity.");
+        }
     }
 }

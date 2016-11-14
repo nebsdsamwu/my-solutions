@@ -21,7 +21,7 @@ namespace OtherTest
 
             //FindMedian(a.Length, a);
 
-            HanoiTest ht = new HanoiTest(3);
+            HanoiTest ht = new HanoiTest(2);
             ht.Run();
 
             Console.ReadKey();
