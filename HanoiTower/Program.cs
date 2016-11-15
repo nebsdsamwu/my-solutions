@@ -10,9 +10,8 @@ namespace HanoiTower
     {
         static void Main(string[] args)
         {
-            int n = 3;
-            Tower[] towers = new Tower[n];
-            for (int i=0; i < n; i++)
+            Tower[] towers = new Tower[3];
+            for (int i=0; i < 3; i++)
             {
                 towers[i] = new Tower(i);
             }
