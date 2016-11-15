@@ -19,7 +19,10 @@ namespace OtherTest
             //    a[i] = i + 1;
             //}
 
-            FindMedian(a.Length, a);
+            //FindMedian(a.Length, a);
+
+            HanoiTest ht = new HanoiTest(2);
+            ht.Run();
 
             Console.ReadKey();
         }
