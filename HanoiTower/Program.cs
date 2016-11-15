@@ -23,7 +23,7 @@ namespace HanoiTower
                 towers[0].Add(i);
             }
 
-            towers[0].MoveDisks(n, towers[2], towers[1]);
+            towers[0].MoveDisks(diskCnt, towers[2], towers[1]);
 
             Console.ReadKey();
         }
