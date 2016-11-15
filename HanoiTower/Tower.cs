@@ -40,13 +40,13 @@ namespace HanoiTower
             t.Add(top);
         }
 
-        public void MoveDisks(int n, Tower destination, Tower buffer)
+        public void MoveDisks(int index, Tower destination, Tower buffer)
         {
-            if (n > 0)
+            if (index > 0)
             {
-                MoveDisks(n - 1, buffer, destination);
+                MoveDisks(index - 1, buffer, destination);
                 MoveTopTo(destination);
-                buffer.MoveDisks(n - 1, destination, this);
+                buffer.MoveDisks(index - 1, destination, this);
             }
         }
     }
