@@ -60,31 +60,34 @@ namespace Chapter08
             // 8.5
             // Console.WriteLine(RecurMutiply(8, 10));
 
-            Permutations("ab");
+            List<string> result = Permutations("abc");
 
             Console.ReadLine();
         }
 
         // 8.7
-        static void Permutations(string s)
+        static List<string> Permutations(string remainder)
         {
-            char[] a = s.ToCharArray();
-            for(int i = 0; i < a.Length; i++)
+            int len = remainder.Length;
+            List<string> result = new List<string>();
+            if (len == 0)
             {
-                Console.WriteLine(Permutations(a[i].ToString(), ));
+                result.Add("");
+                return result;
             }
-        }
 
-        static string Permutations(string s1, string s2)
-        {
-            if (s.Length == 1)
+            for (int i = 0; i < len; i++)
             {
-                return s;
+                string before = remainder.Substring(0, i + 1);
+                string after = remainder.Substring(i + 1, len - i - 1);
+                List<string> partials = Permutations(before + after);
+
+                foreach (string s in partials)
+                {
+                    result.Add(remainder.ElementAt(i).ToString());
+                }
             }
-            else
-            {
-                Permutations();
-            }
+            return result;
         }
 
         // 8.5
