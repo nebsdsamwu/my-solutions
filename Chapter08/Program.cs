@@ -57,9 +57,34 @@ namespace Chapter08
             //    Console.WriteLine();
             //}
 
-            Console.WriteLine(RecurMutiply(8, 10));
+            // 8.5
+            // Console.WriteLine(RecurMutiply(8, 10));
+
+            Permutations("ab");
 
             Console.ReadLine();
+        }
+
+        // 8.7
+        static void Permutations(string s)
+        {
+            char[] a = s.ToCharArray();
+            for(int i = 0; i < a.Length; i++)
+            {
+                Console.WriteLine(Permutations(a[i].ToString(), ));
+            }
+        }
+
+        static string Permutations(string s1, string s2)
+        {
+            if (s.Length == 1)
+            {
+                return s;
+            }
+            else
+            {
+                Permutations();
+            }
         }
 
         // 8.5
