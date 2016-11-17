@@ -84,7 +84,7 @@ namespace Chapter08
 
                 foreach (string s in partials)
                 {
-                    result.Add(remainder.ElementAt(i).ToString());
+                    result.Add(remainder.ElementAt(i).ToString() + s);
                 }
             }
             return result;
