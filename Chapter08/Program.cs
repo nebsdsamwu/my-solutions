@@ -78,8 +78,8 @@ namespace Chapter08
 
             for (int i = 0; i < len; i++)
             {
-                string before = remainder.Substring(0, i + 1);
-                string after = remainder.Substring(i + 1, len - i - 1);
+                string before = remainder.Substring(0, i);
+                string after = remainder.Substring(i, len - i);
                 List<string> partials = Permutations(before + after);
 
                 foreach (string s in partials)
