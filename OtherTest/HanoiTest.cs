@@ -8,7 +8,6 @@ namespace OtherTest
 {
     class HanoiTest
     {
-        private int towerCnt = 3;
         private int diskCnt = 0;
         Stack<int>[] towers;
 
@@ -21,7 +20,7 @@ namespace OtherTest
             else
             {
                 diskCnt = d;
-                towers = new Stack<int>[towerCnt];
+                towers = new Stack<int>[3];
                 for (int i = 0; i < towers.Length; i++ )
                 {
                     towers[i] = new Stack<int>();
@@ -36,8 +35,19 @@ namespace OtherTest
 
         public void Run()
         {
-            Console.WriteLine(towers[0].Count);
-            Move2Disks(towers[0], towers[1], towers[2], 2);
+            // Console.WriteLine(towers[0].Count);
+            MoveDisks(diskCnt, towers[0], towers[1], towers[2]);
+        }
+
+        private void MoveDisks(int n, Stack<int> fromTwr, Stack<int> buffTwr, Stack<int> toTwr)
+        {
+            if (n > 0)
+            {
+                MoveDisks(n - 1, fromTwr, toTwr, buffTwr);
+                int top = fromTwr.Pop();
+                toTwr.Push(top);
+                MoveDisks(n - 1, buffTwr, fromTwr, toTwr);
+            }
         }
 
         private void Move2Disks(Stack<int> fromTwr, Stack<int> buffTwr, Stack<int> toTwr, int index)
