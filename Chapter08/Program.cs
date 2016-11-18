@@ -60,7 +60,7 @@ namespace Chapter08
             // 8.5
             // Console.WriteLine(RecurMutiply(8, 10));
 
-            List<string> result = Permutations("ab");
+            List<string> result = Permutations("abcd");
 
             Console.ReadLine();
         }
@@ -79,7 +79,7 @@ namespace Chapter08
             for (int i = 0; i < len; i++)
             {
                 string before = remainder.Substring(0, i);
-                string after = remainder.Substring(i, len - i);
+                string after = remainder.Substring(i + 1, len - i -1);
                 List<string> partials = Permutations(before + after);
 
                 foreach (string s in partials)
