@@ -60,7 +60,7 @@ namespace Chapter08
             // 8.5
             // Console.WriteLine(RecurMutiply(8, 10));
 
-            List<string> result = Permutations("abcd");
+            List<string> result = Permutations("abc");
 
             Console.ReadLine();
         }
