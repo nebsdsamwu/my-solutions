@@ -60,6 +60,9 @@ namespace Chapter08
             // 8.5
             // Console.WriteLine(RecurMutiply(8, 10));
 
+            // interesting
+            //string c = "bcd";
+            //string subc = c.Substring(3, 0);
             List<string> result = Permutations("abc");
 
             Console.ReadLine();
